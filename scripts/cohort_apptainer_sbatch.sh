@@ -6,15 +6,15 @@
 #SBATCH --output=./vntyper2_cohort.%j.out
 #SBATCH --error=./vntyper2_cohort.%j.err
 
-# === ARGUMENTS ===
+# ARGUMENTS 
 INPUT_DIR="$1"      # Path to genotyping output from VNTyper
 OUTPUT_DIR="$2"     # Path where summary will be written
 SUMMARY_NAME="$3"    # Required: Base name for summary files (no extension)
 
-# === CONSTANTS ===
+# CONSTANTS
 SIF_IMAGE="/data-master/workspace/labss/hsaei/images/vntyper/vntyper_2.0.0-beta.sif"
 
-# === CHECKS ===
+# CHECKS
 if [ -z "$INPUT_DIR" ] || [ -z "$OUTPUT_DIR" ] || [ -z "$SUMMARY_NAME" ]; then
     echo "Usage: sbatch $0 <input_folder> <output_folder> <summary_filename_base>"
     echo "Example: sbatch $0 /data/cohort1 /results/cohort1_summary cohort_paris"
@@ -31,7 +31,7 @@ if [ ! -f "$SIF_IMAGE" ]; then
     exit 1
 fi
 
-# === RUN ===
+# RUN
 apptainer run --pwd /opt/vntyper \
     --bind "${INPUT_DIR}":/opt/vntyper/input,"${OUTPUT_DIR}":/opt/vntyper/output \
     "$SIF_IMAGE" \

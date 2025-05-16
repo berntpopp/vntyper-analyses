@@ -6,19 +6,19 @@
 #SBATCH --output=./vntyper2.%j.out
 #SBATCH --error=./vntyper2.%j.err
 
-# === INPUTS ===
+# INPUTS
 INPUT_DIR_NAME="$1"     # e.g., my_sample_folder
 OUTPUT_DIR="$2"         # full output path
 MODE="$3"               # fast or slow
 THREADS_PER_BAM=10
 MAX_PARALLEL=$((SLURM_CPUS_PER_TASK / THREADS_PER_BAM))
 
-# === CONSTANTS ===
+# CONSTANTS
 INPUT_DIR="${INPUT_DIR_NAME}"
 CONTAINER="/data-master/workspace/labss/hsaei/images/vntyper/vntyper_2.0.0-beta.sif"
 REF="hg19"
 
-# === MODE CHECK ===
+# MODE CHECK
 if [[ "$MODE" == "fast" ]]; then
     MODE_FLAG="--fast-mode"
     echo "Running in FAST mode"
@@ -27,7 +27,7 @@ else
     echo "Running in standard (default) mode"
 fi
 
-# === INPUT CHECK ===
+# INPUT CHECK
 if [ ! -d "$INPUT_DIR" ]; then
     echo "Input directory does not exist: $INPUT_DIR"
     exit 1
@@ -46,7 +46,7 @@ if ! compgen -G "${INPUT_DIR}/*.bam" > /dev/null; then
 fi
 
 
-# === FUNCTION TO PROCESS BAM ===
+# FUNCTION TO PROCESS BAM
 CMD_FILE="vntyper2_cmds_${SLURM_JOB_ID}.txt"
 
 for BAM in "${INPUT_DIR}"/*.bam; do
@@ -54,7 +54,7 @@ for BAM in "${INPUT_DIR}"/*.bam; do
     echo "apptainer run --pwd /opt/vntyper -B ${INPUT_DIR}:/opt/vntyper/input -B ${OUTPUT_DIR}:/opt/vntyper/output ${CONTAINER} vntyper pipeline --threads ${THREADS_PER_BAM} --reference-assembly ${REF} --bam /opt/vntyper/input/${BAM_NAME}.bam -o /opt/vntyper/output/${BAM_NAME} -n ${BAM_NAME} ${MODE_FLAG}" >> "$CMD_FILE"
 done
 
-# === Run commands in parallel with xargs ===
+# Run commands in parallel with xargs
 cat "$CMD_FILE" | xargs -I {} -P ${MAX_PARALLEL} bash -c "{}"
 trap "rm -f $CMD_FILE" EXIT
 

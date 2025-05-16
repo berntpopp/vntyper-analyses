@@ -6,14 +6,14 @@
 #SBATCH --output=./vntyper2.%j.out
 #SBATCH --error=./vntyper2.%j.err
 
-# === INPUTS ===
+# INPUTS
 INPUT_DIR_NAME="$1"     # e.g., bam_files/
 OUTPUT_DIR="$2"         # e.g., /path/to/output
 MODE="$3"               # fast or slow
 THREADS_PER_BAM=10
 MAX_PARALLEL=$((SLURM_CPUS_PER_TASK / THREADS_PER_BAM))
 
-# === PRECHECK ===
+# PRECHECK
 INPUT_DIR="${INPUT_DIR_NAME}"
 LOG_DIR="${OUTPUT_DIR}/logs"
 mkdir -p "$LOG_DIR"
@@ -31,7 +31,7 @@ if ! compgen -G "${INPUT_DIR}/*.bam" > /dev/null; then
     exit 1
 fi
 
-# === MODE CHECK ===
+# MODE CHECK
 if [[ "$MODE" == "fast" ]]; then
     MODE_FLAG="--fast-mode"
     echo "Running in FAST mode"
@@ -40,7 +40,7 @@ else
     echo "Running in standard (default) mode"
 fi
 
-# === CREATE CMD FILE ===
+# CREATE CMD FILE
 CMD_FILE="vntyper2_docker_cmds_${SLURM_JOB_ID}.txt"
 
 for BAM in "${INPUT_DIR}"/*.bam; do
@@ -53,7 +53,7 @@ for BAM in "${INPUT_DIR}"/*.bam; do
         -o /opt/vntyper/output/${BAM_NAME} ${MODE_FLAG}" >> "$CMD_FILE"
 done
 
-# === RUN IN PARALLEL ===
+# RUN IN PARALLEL
 cat "$CMD_FILE" | xargs -I {} -P ${MAX_PARALLEL} bash -c "{}"
 trap "rm -f $CMD_FILE" EXIT
 

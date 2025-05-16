@@ -2,11 +2,11 @@
 
 This folder contains SLURM batch scripts and analysis utilities related to running the VNTyper pipeline and generating cohort-level summary reports. These scripts support both Apptainer (`.sif`) and Docker container environments.
 
-## 🔧 SLURM Scripts for VNTyper
+## 🔧 SLURM Scripts for VNtyper
 
-### 1. Run VNTyper Pipeline on Multiple BAMs
+### 1. Run VNtyper Pipeline on Multiple BAMs
 
-You can run the VNTyper pipeline in parallel on all BAM files in a directory using either Apptainer or Docker.
+You can run the VNtyper pipeline in parallel on all BAM files in a directory using either Apptainer or Docker.
 
 ⚠️ **Important:** YOU SHOULD CHANGE THE PATH TO THE APPTAINER CONTAINER BASED ON YOUR CLUSTER SETUP.
 
@@ -51,8 +51,17 @@ sbatch vntyper2_cohort_docker_sbatch.sh /path/to/output /path/to/summary_output 
   - `/path/to/summary_output`: Where to write the summary files
   - `cohort_summary_name`: Base name for the generated `.html`
 
+
+### 3. Extract Additional Statistics from cohort html report
+
+We provided a Python script that extracts the “Additional Statistics” table from a VNTyper HTML report (cohort mode) and saves it as CSV.
+
+```bash
+python extract_additional_stats.py cohort.html additional_stats.csv
+```
+
 ## 📊 Additional Scripts
 
-This folder will also include analysis and plotting scripts to generate publication-ready figures from VNTyper outputs (e.g., merged cohort tables, variant distributions, summary plots).
+This folder will also include analysis and plotting scripts to generate publication-ready figures from VNtyper outputs (e.g., merged cohort tables, variant distributions, summary plots).
 
 Stay tuned!
