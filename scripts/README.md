@@ -8,6 +8,8 @@ This folder contains SLURM batch scripts and analysis utilities related to runni
 
 You can run the VNTyper pipeline in parallel on all BAM files in a directory using either Apptainer or Docker.
 
+⚠️ **Important:** YOU SHOULD CHANGE THE PATH TO THE APPTAINER CONTAINER BASED ON YOUR CLUSTER SETUP.
+
 #### Apptainer version:
 The script can run is standard and fast mode (skipping unaligned reads)
 
