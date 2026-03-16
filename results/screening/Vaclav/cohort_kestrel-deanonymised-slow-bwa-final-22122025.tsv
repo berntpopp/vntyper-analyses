@@ -1,0 +1,264 @@
+sample_id	Sample	Motifs	POS	REF	ALT	Motif_sequence	Variant	Del	Estimated_Depth_AlternateVariant	Estimated_Depth_Variant_ActiveRegion	ref_len	alt_len	Frame_Score	is_frameshift	direction	frameshift_amount	is_valid_frameshift	Depth_Score	Confidence	depth_confidence_pass	alt_filter_pass	motif_filter_pass	Motif_fasta	POS_fasta	Motif	Flag	__row_result	__unified	haplo_count	Original
+B498	sample_f9c28		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B498
+wZ	sample_f9146		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		wZ
+A875	sample_99ce5		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A875
+xF	sample_824d2		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		xF
+B096	sample_6c36d	8-7	70	C	CGGCT	CGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCAAGGCGGGCCTGTTGTCCGGGGCCGAGGTGACACCATGGGCTGGGGGGGCGGTGGAGCC	Insertion	1	11	2747	1	5	1.3333333333333333	True	1	1	True	0.004004368401892974	Low_Precision	True	True	True	8-7	70	8	Low_Depth_Conserved_Motifs	Low_Precision_flagged	Positive_Flagged	1	B096
+A503	sample_07b6a		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A503
+B437	sample_41eea		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B437
+A342	sample_1a3b5		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A342
+qN	sample_619b3		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		qN
+B671	sample_1a628	L-B	67	G	GG	TGGGGGGGCGGTGGAGCCCGGGGCCGGCCTGCTCTCCGGGGCCGAGGTGACACCGTGGGCTGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGC	Insertion	1	75	5856	1	2	0.3333333333333333	True	1	1	True	0.012807377049180328	High_Precision	True	True	True	L-B	67	L	Not flagged	High_Precision	Positive	366	B671
+xB	sample_70ebe		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		xB
+B499	sample_7d250		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B499
+wN	sample_2be62		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		wN
+B422	sample_3c44a		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B422
+B296	sample_93f08		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B296
+B080	sample_a3c68	D-B	88	C	CGGCT	TGGGGGGGCGGTGGAGCCCGGGGCCGGCCTGCTCTCCGGGGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	6	2256	1	5	1.3333333333333333	True	1	1	True	0.0026595744680851063	Low_Precision	True	True	True	D-B	88	D	Not flagged	Low_Precision	Positive	11	B080
+A651	sample_91fc0		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A651
+B104	sample_0401a		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B104
+A510	sample_afdba		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A510
+B672	sample_d48ba		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B672
+A491	sample_1af50		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A491
+B530	sample_dce2e		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B530
+A480	sample_d54b9		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A480
+A489	sample_4fc86		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A489
+B090	sample_78b07		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B090
+A507	sample_ca520		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A507
+A867	sample_8401c		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A867
+wP	sample_18967		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		wP
+B532	sample_29f0d		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B532
+B091	sample_9f99c	5C-D	28	C	CGGCT	TGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACATCGTGGGC	Insertion	1	9	2114	1	5	1.3333333333333333	True	1	1	True	0.004257332071901609	Low_Precision	True	True	True	5C-D	28	D	Not flagged	Low_Precision	Positive	20	B091
+A800	sample_e4044		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A800
+B507	sample_3b1de	5C-L	67	G	GG	TGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGCTTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACATCGTGGGC	Insertion	1	18	2387	1	2	0.3333333333333333	True	1	1	True	0.00754084625052367	Low_Precision	True	True	True	5C-L	67	5C	Not flagged	Low_Precision	Positive	144	B507
+A805	sample_1eeac		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A805
+B093	sample_2c3b8		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B093
+A655	sample_510af		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A655
+A546	sample_f7721		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A546
+wV	sample_98f4e		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		wV
+A502	sample_24727		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A502
+A902	sample_f7bb8	D-J	82	G	GGCGGTGGAGCCCGGGG	TGCGGGCGCGGTGGAGCCCGGGGCCGGCCTGCTCTCCGGTGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	57	2310	1	17	5.333333333333333	True	1	1	True	0.024675324675324677	High_Precision	True	True	True	D-J	82	D	Not flagged	High_Precision	Positive	275	A902
+B087	sample_04e77		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B087
+B522	sample_21e0b	K-Q	67	G	GG	TGGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACTGTGGGCTGGGGGGGCGGTGGAGCCCAGGGCCGGCCTGCTCTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	144	7513	1	2	0.3333333333333333	True	1	1	True	0.019166777585518435	High_Precision*	True	True	True	K-Q	67	K	Not flagged	High_Precision	Positive	344	B522
+B528	sample_5f485		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B528
+B524	sample_c1b60	D-C	67	G	GG	TTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	90	1743	1	2	0.3333333333333333	True	1	1	True	0.05163511187607573	High_Precision	True	True	True	D-C	67	D	Not flagged	High_Precision	Positive	362	B524
+qR	sample_95a88		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		qR
+A803	sample_3da92		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A803
+A518	sample_3ad8e		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A518
+B319	sample_68d7e		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B319
+B514	sample_cde96	J-6	100	T	TG	CGGGGCCGGGGTGGAGCCCGGGGCCCGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGCGGGCGCGGTGGAGCCCGGGGCCGGCCTGCTCTCCGGTGCCGAGGTGACACCGTGGGC	Insertion	1	41	7504	1	2	0.3333333333333333	True	1	1	True	0.005463752665245202	High_Precision	True	True	True	J-6	100	J	Not flagged	High_Precision	Positive	19	B514
+A496	sample_e5c82		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A496
+B534	sample_187d3	D-6	88	C	CGGCT	CGGGGCCGGGGTGGAGCCCGGGGCCCGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	8	2219	1	5	1.3333333333333333	True	1	1	True	0.003605227579990987	Low_Precision	True	True	True	D-6	88	D	Not flagged	Low_Precision	Positive	31	B534
+B506	sample_e1985	L-6p	67	G	GG	CGGGGCCGGGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGC	Insertion	1	32	6246	1	2	0.3333333333333333	True	1	1	True	0.005123278898495036	Low_Precision	True	True	True	L-6p	67	L	Not flagged	Low_Precision	Positive	357	B506
+wS	sample_616f0		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		wS
+B326	sample_239b2		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B326
+A466	sample_28bca		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A466
+A901	sample_955de	D-J	82	G	GGCGGTGGAGCCCGGGG	TGCGGGCGCGGTGGAGCCCGGGGCCGGCCTGCTCTCCGGTGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	45	4551	1	17	5.333333333333333	True	1	1	True	0.00988793671720501	High_Precision	True	True	True	D-J	82	D	Not flagged	High_Precision	Positive	272	A901
+B664	sample_1edd7	C-Q	67	G	GG	TGGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACTGTGGGCTTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	148	7682	1	2	0.3333333333333333	True	1	1	True	0.019265816193699558	High_Precision*	True	True	True	C-Q	67	C	Not flagged	High_Precision	Positive	231	B664
+A653	sample_17304		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A653
+xA	sample_d23a0		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		xA
+B533	sample_62b1e	D-6p	88	C	CGGCA	CGGGGCCGGGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	6	2826	1	5	1.3333333333333333	True	1	1	True	0.0021231422505307855	Low_Precision	True	True	True	D-6p	88	D	False_Positive_4bp_Insertion	Low_Precision_flagged	Positive_Flagged	18	B533
+wY	sample_4a754		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		wY
+B094	sample_96a15		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B094
+B321	sample_73570		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B321
+A490	sample_fbe3f		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A490
+A370	sample_51fb2		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A370
+xK	sample_f0a52		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		xK
+B297	sample_694fc		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B297
+A464	sample_35009		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A464
+A456	sample_f0498		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A456
+B508	sample_d11b9	L-L	67	G	GG	TGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGCTGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGC	Insertion	1	167	7976	1	2	0.3333333333333333	True	1	1	True	0.020937813440320963	High_Precision*	True	True	True	L-L	67	L	Not flagged	High_Precision	Positive	343	B508
+A558	sample_77584		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A558
+B659	sample_f4d6d	L-6	67	G	GG	CGGGGCCGGGGTGGAGCCCGGGGCCCGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGC	Insertion	1	31	5373	1	2	0.3333333333333333	True	1	1	True	0.005769588684161549	High_Precision	True	True	True	L-6	67	L	Not flagged	High_Precision	Positive	149	B659
+B502	sample_ad1c6		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B502
+B103	sample_4c8e1		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B103
+A486	sample_7a8d7		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A486
+A869	sample_4fd6e		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A869
+B320	sample_8b200		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B320
+A366	sample_81160		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A366
+A460	sample_4323e		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A460
+B517	sample_04f45		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B517
+B086	sample_27eb7		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B086
+A348	sample_d9f02		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A348
+A514	sample_5dc5e		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A514
+A999	sample_e43f7		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A999
+wO	sample_71ec1	B-M	67	G	GG	TGGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGTGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCCGGCCTGCTCTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	25	1810	1	2	0.3333333333333333	True	1	1	True	0.013812154696132596	High_Precision	True	True	True	B-M	67	B	Not flagged	High_Precision	Positive	220	wO
+A802	sample_f46e5		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A802
+A501	sample_264a0		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A501
+A688	sample_8d991		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A688
+B505	sample_2dc19	W-M	67	G	GG	TGGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGTGCCGAGGTGACACCGTGGGCCGGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	57	6632	1	2	0.3333333333333333	True	1	1	True	0.00859469240048251	High_Precision	True	True	True	W-M	67	W	Not flagged	High_Precision	Positive	164	B505
+A479	sample_80a27		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A479
+B513	sample_80dd8	5-C	61	T	TT	TTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCTGGCTTGTTGTCCGGGGCTGAGGTGACATCGTGGGC	Insertion	1	45	3830	1	2	0.3333333333333333	True	1	1	True	0.01174934725848564	High_Precision	True	True	True	5-C	61	5	Not flagged	High_Precision	Positive	34	B513
+B077	sample_559b1		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B077
+A871	sample_76d5e		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A871
+A513	sample_79a84		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A513
+B658	sample_91779	W-M	67	G	GG	TGGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGTGCCGAGGTGACACCGTGGGCCGGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	49	5067	1	2	0.3333333333333333	True	1	1	True	0.00967041641997237	High_Precision	True	True	True	W-M	67	W	Not flagged	High_Precision	Positive	366	B658
+A033	sample_bd64f		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A033
+B531	sample_7dcc2		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B531
+B242	sample_f9f6a		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B242
+B421	sample_5a071		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B421
+B529	sample_0b385		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B529
+B670	sample_02f0a	L-L	67	G	GG	TGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGCTGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGC	Insertion	1	29	4476	1	2	0.3333333333333333	True	1	1	True	0.006478999106344951	High_Precision	True	True	True	L-L	67	L	Not flagged	High_Precision	Positive	344	B670
+B521	sample_ef053		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B521
+A367	sample_848aa		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A367
+A487	sample_0b0f2	5C-L	67	G	GG	TGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGCTTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACATCGTGGGC	Insertion	1	42	4213	1	2	0.3333333333333333	True	1	1	True	0.009969143128412059	High_Precision	True	True	True	5C-L	67	5C	Not flagged	High_Precision	Positive	170	A487
+A870	sample_6b16f		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A870
+A674	sample_d869d		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A674
+qS	sample_2f653		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		qS
+B552	sample_f20c5		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B552
+A868	sample_3d237		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A868
+B669	sample_c0cbb	D-C	67	G	GG	TTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	112	3245	1	2	0.3333333333333333	True	1	1	True	0.03451463790446841	High_Precision*	True	True	True	D-C	67	D	Not flagged	High_Precision	Positive	342	B669
+B002	sample_7d7b2	K-S	87	G	GGGAGCCCGGGGCCGGC	TGCGGGGGCGGTGGAGCCCGGGGCCGGCCTGCTCTCCGGGGCTGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCAGGGCCGGCCTGCTCTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	23	1295	1	17	5.333333333333333	True	1	1	True	0.01776061776061776	High_Precision	True	True	True	K-S	87	K	Not flagged	High_Precision	Positive	411	B002
+qP	sample_2c1eb		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		qP
+B666	sample_e804e	5C-L	67	G	GG	TGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGCTTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACATCGTGGGC	Insertion	1	35	6666	1	2	0.3333333333333333	True	1	1	True	0.005250525052505251	High_Precision	True	True	True	5C-L	67	5C	Not flagged	High_Precision	Positive	343	B666
+A872	sample_00a12		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A872
+A499	sample_0dc86		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A499
+A801	sample_0fca8		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A801
+B243	sample_532c7		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B243
+A515	sample_f71c4		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A515
+A462	sample_54c4b		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A462
+A481	sample_3e17a		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A481
+A346	sample_6a9f1		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A346
+xH	sample_74046		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		xH
+B098	sample_b26d0		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B098
+B081	sample_55153		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B081
+A465	sample_25abc		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A465
+A493	sample_19021		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A493
+B323	sample_bad9d		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B323
+A457	sample_938fd		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A457
+A455	sample_98fa0		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A455
+A516	sample_5d6f3		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A516
+A347	sample_768ea		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A347
+A673	sample_4184d		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A673
+B083	sample_bb4cf	8-7	70	C	CGGCT	CGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCAAGGCGGGCCTGTTGTCCGGGGCCGAGGTGACACCATGGGCTGGGGGGGCGGTGGAGCC	Insertion	1	9	3727	1	5	1.3333333333333333	True	1	1	True	0.0024148108398175474	Low_Precision	True	True	True	8-7	70	8	Low_Depth_Conserved_Motifs	Low_Precision_flagged	Positive_Flagged	1	B083
+yI	sample_48c48		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		yI
+B523	sample_b83d9	C-L	67	G	GG	TGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGCTTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	393	8731	1	2	0.3333333333333333	True	1	1	True	0.04501202611384721	High_Precision*	True	True	True	C-L	67	C	Not flagged	High_Precision	Positive	357	B523
+A484	sample_0db9d		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A484
+B661	sample_4a1c0	L-L	67	G	GG	TGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGCTGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGC	Insertion	1	30	3948	1	2	0.3333333333333333	True	1	1	True	0.007598784194528876	High_Precision	True	True	True	L-L	67	L	Not flagged	High_Precision	Positive	338	B661
+B519	sample_4a62f		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B519
+B554	sample_9758f		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B554
+B518	sample_1c737	5-A	61	T	TC	TGCGGGCGCGGTGGAGCCCGGGGCCGGCCTGCTCTCCGGGGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCTGGCTTGTTGTCCGGGGCTGAGGTGACATCGTGGGC	Insertion	1	21	5431	1	2	0.3333333333333333	True	1	1	True	0.0038666912170870925	Low_Precision	True	True	True	5-A	61	5	Not flagged	Low_Precision	Positive	14	B518
+A676	sample_1e125		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A676
+A372	sample_aaf55		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A372
+A492	sample_b4424		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A492
+wR	sample_8e6de		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		wR
+B423	sample_8a632		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B423
+A497	sample_1eff0		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A497
+wU	sample_300a1		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		wU
+A458	sample_8601a		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A458
+B515	sample_2a1be		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B515
+yJ	sample_c3531	2-3	60	CCTGAG	C	CCAGGTGGCAGCTGAACCTGAAGCTGGTTCCGTGGCCGGGGCCAGAGTGACATCCTGTCCCTGAGTGGTGGAGGAGCCTGAACCGGGGCTGTGGCTGGAGAGTACGCTGCTGGTCATACT	Deletion	1	23	223	6	1	-1.6666666666666667	True	-1	2	True	0.1031390134529148	High_Precision	True	True	True	2-3	60	2	Low_Depth_Conserved_Motifs	High_Precision_flagged	Positive_Flagged	1	yJ
+B424	sample_f2423		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B424
+A557	sample_a2d38		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A557
+A459	sample_773cf		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A459
+B516	sample_12a41	L-6p	65	G	GT	CGGGGCCGGGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGC	Insertion	1	30	2520	1	2	0.3333333333333333	True	1	1	True	0.011904761904761904	High_Precision	True	True	True	L-6p	65	L	Not flagged	High_Precision	Positive	38	B516
+A685	sample_f7bd1		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A685
+B438	sample_89d06	A-J	87	G	GGGAGCCCGGGGCCGGC	TGCGGGCGCGGTGGAGCCCGGGGCCGGCCTGCTCTCCGGTGCCGAGGTGACACCGTGGGCTGCGGGCGCGGTGGAGCCCGGGGCCGGCCTGCTCTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	135	8384	1	17	5.333333333333333	True	1	1	True	0.016102099236641222	High_Precision*	True	True	True	A-J	87	A	Not flagged	High_Precision	Positive	429	B438
+B101	sample_90fa7	E-M	88	C	CGGCT	TGGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGTGCCGAGGTGACACCGTGGGCTGCGGGCGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	8	3260	1	5	1.3333333333333333	True	1	1	True	0.00245398773006135	Low_Precision	True	True	True	E-M	88	E	Not flagged	Low_Precision	Positive	30	B101
+A341	sample_df2c2		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A341
+B085	sample_f34aa		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B085
+B078	sample_347eb		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B078
+B241	sample_01954		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B241
+A545	sample_ca144		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A545
+B106	sample_92e8e		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B106
+B556	sample_ada57	D-J	88	C	CGGCT	TGCGGGCGCGGTGGAGCCCGGGGCCGGCCTGCTCTCCGGTGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	14	4800	1	5	1.3333333333333333	True	1	1	True	0.002916666666666667	Low_Precision	True	True	True	D-J	88	D	Not flagged	Low_Precision	Positive	4	B556
+B663	sample_14a5b	W-M	67	G	GG	TGGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGTGCCGAGGTGACACCGTGGGCCGGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	66	6667	1	2	0.3333333333333333	True	1	1	True	0.009899505024748763	High_Precision	True	True	True	W-M	67	W	Not flagged	High_Precision	Positive	140	B663
+B512	sample_340cc		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B512
+B324	sample_dfa39		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B324
+xE	sample_b0de8		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		xE
+B089	sample_9ac1f	D-C	88	C	CGGCT	TTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	7	3171	1	5	1.3333333333333333	True	1	1	True	0.002207505518763797	Low_Precision	True	True	True	D-C	88	D	Not flagged	Low_Precision	Positive	6	B089
+A504	sample_dbdbc		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A504
+A368	sample_45f26		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A368
+B327	sample_21c57		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B327
+A866	sample_5ff50		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A866
+B082	sample_2bc50		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B082
+B497	sample_953bf		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B497
+xC	sample_55a00		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		xC
+A517	sample_504af		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A517
+A500	sample_8b563		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A500
+wX	sample_bbb8f		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		wX
+A804	sample_0b936		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A804
+A512	sample_e5401		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A512
+A482	sample_dc6e0		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A482
+B418	sample_da0f5		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B418
+A656	sample_0addb		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A656
+B105	sample_b7115	5C-D	28	C	CGGCT	TGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACATCGTGGGC	Insertion	1	5	1545	1	5	1.3333333333333333	True	1	1	True	0.003236245954692557	Low_Precision	True	True	True	5C-D	28	D	Not flagged	Low_Precision	Positive	20	B105
+A654	sample_6a7d3		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A654
+A508	sample_6cc63		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A508
+A498	sample_ab319		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A498
+B662	sample_71c2a		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B662
+B240	sample_d8e97		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B240
+A506	sample_49298		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A506
+B328	sample_c9ee6		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B328
+B665	sample_78565	L-6p	67	G	GG	CGGGGCCGGGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGC	Insertion	1	30	4577	1	2	0.3333333333333333	True	1	1	True	0.006554511688879178	High_Precision	True	True	True	L-6p	67	L	Not flagged	High_Precision	Positive	120	B665
+B660	sample_43f90	C-L	67	G	GG	TGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGCTTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	311	10349	1	2	0.3333333333333333	True	1	1	True	0.030051212677553386	High_Precision*	True	True	True	C-L	67	C	Not flagged	High_Precision	Positive	366	B660
+A494	sample_bb62e		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A494
+A874	sample_5a25b		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A874
+B501	sample_58448		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B501
+A873	sample_1864d		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A873
+wT	sample_585ff		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		wT
+B419	sample_e464b		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B419
+A345	sample_909d4		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A345
+A463	sample_a1123		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A463
+A371	sample_b9147		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A371
+A488	sample_6e2f2		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A488
+B325	sample_7f98d	5C-L	67	G	GG	TGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGCTTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACATCGTGGGC	Insertion	1	10	1023	1	2	0.3333333333333333	True	1	1	True	0.009775171065493646	Low_Precision	True	True	True	5C-L	67	5C	Not flagged	Low_Precision	Positive	326	B325
+A477	sample_1efce		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A477
+A478	sample_61985		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A478
+A461	sample_674c8		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A461
+A483	sample_f4744		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A483
+B001	sample_993a2		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B001
+B667	sample_fa9e3	C-L	67	G	GG	TGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGCTTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	87	5231	1	2	0.3333333333333333	True	1	1	True	0.016631619193270886	High_Precision	True	True	True	C-L	67	C	Not flagged	High_Precision	Positive	149	B667
+qQ	sample_48dee		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		qQ
+B079	sample_fb720		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B079
+A369	sample_3d87c		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A369
+B097	sample_54c0c	D-6p	88	C	CGGCT	CGGGGCCGGGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	5	1302	1	5	1.3333333333333333	True	1	1	True	0.0038402457757296467	Low_Precision	True	True	True	D-6p	88	D	Not flagged	Low_Precision	Positive	23	B097
+A467	sample_4860d		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A467
+A900	sample_a30a2	D-J	82	G	GGCGGTGGAGCCCGGGG	TGCGGGCGCGGTGGAGCCCGGGGCCGGCCTGCTCTCCGGTGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	69	3346	1	17	5.333333333333333	True	1	1	True	0.020621637776449493	High_Precision	True	True	True	D-J	82	D	Not flagged	High_Precision	Positive	293	A900
+A675	sample_a4398		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A675
+yK	sample_ab35a		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		yK
+A495	sample_97944		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A495
+B500	sample_684de		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B500
+A509	sample_a3d48		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A509
+A547	sample_831e5		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A547
+A548	sample_e3610		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A548
+xD	sample_ce527		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		xD
+B003	sample_d2368	C-S	87	G	GGGAGCCCGGGGCCGGC	TGCGGGGGCGGTGGAGCCCGGGGCCGGCCTGCTCTCCGGGGCTGAGGTGACACCGTGGGCTTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	35	2178	1	17	5.333333333333333	True	1	1	True	0.016069788797061526	High_Precision	True	True	True	C-S	87	C	Not flagged	High_Precision	Positive	412	B003
+A686	sample_61e1b		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A686
+wW	sample_635c3		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		wW
+xJ	sample_2aea3		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		xJ
+B668	sample_cdd5c		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B668
+B099	sample_0b2a6		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B099
+A511	sample_2a716		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A511
+B102	sample_4c6ea		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B102
+B322	sample_5ee07		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B322
+B525	sample_037b6	D-6p	67	G	GG	CGGGGCCGGGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	124	2733	1	2	0.3333333333333333	True	1	1	True	0.045371386754482254	High_Precision*	True	True	True	D-6p	67	D	Not flagged	High_Precision	Positive	365	B525
+B526	sample_02350		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B526
+B504	sample_34980	5-C	28	C	CGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCCGGCC	TTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCTGGCTTGTTGTCCGGGGCTGAGGTGACATCGTGGGC	Insertion	1	24	3512	1	47	15.333333333333334	True	1	1	True	0.00683371298405467	High_Precision	True	True	True	5-C	28	C	Not flagged	High_Precision	Positive	81	B504
+A485	sample_7af7d		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A485
+A652	sample_1d591		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A652
+xI	sample_e3962		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		xI
+B092	sample_f7380	8-7	70	C	CGGCT	CGGGGCCGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCAAGGCGGGCCTGTTGTCCGGGGCCGAGGTGACACCATGGGCTGGGGGGGCGGTGGAGCC	Insertion	1	5	2152	1	5	1.3333333333333333	True	1	1	True	0.0023234200743494425	Low_Precision	True	True	True	8-7	70	8	Low_Depth_Conserved_Motifs	Low_Precision_flagged	Positive_Flagged	1	B092
+B095	sample_c7d09		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B095
+B088	sample_cf089	D-J	88	C	CGGCT	TGCGGGCGCGGTGGAGCCCGGGGCCGGCCTGCTCTCCGGTGCCGAGGTGACACCGTGGGCTGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGC	Insertion	1	9	5941	1	5	1.3333333333333333	True	1	1	True	0.0015148964820737249	Low_Precision	True	True	True	D-J	88	D	Not flagged	Low_Precision	Positive	4	B088
+B420	sample_7e78e		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B420
+A343	sample_4effc		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A343
+B527	sample_6c5ca		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B527
+xG	sample_331d8		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		xG
+B084	sample_5fdfb		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B084
+B520	sample_b5031		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B520
+A903	sample_26077		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A903
+qO	sample_c663e		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		qO
+A344	sample_308c0		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A344
+B555	sample_9b4b6		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B555
+A865	sample_814fb		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A865
+B511	sample_1ed98		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B511
+A687	sample_99c2b		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A687
+A505	sample_36e37		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A505
+B298	sample_7c59c		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B298
+B553	sample_779f2		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		B553
+A373	sample_a9d8b		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A373
+A799	sample_a05bd		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		A799
+B100	sample_0cbbb	5C-D	28	C	CGGCT	TGGGGGGGCGGTGGAGCCCGGGGCGGGCCTGGTGTCCGGGGCCGAGGTGACACCGTGGGCTTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACATCGTGGGC	Insertion	1	5	1879	1	5	1.3333333333333333	True	1	1	True	0.0026609898882384245	Low_Precision	True	True	True	5C-D	28	D	Not flagged	Low_Precision	Positive	20	B100
+wQ	sample_08cc6		None	None	None	None	None		None	None								None	Negative						None		negative	Negative		wQ
+B503	sample_348a0	5C-L	61	T	TC	TGGGGCGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACACCGTGGGCTTGGGGGGCGGTGGAGCCCGGGGCCGGCCTGGTGTCCGGGGCTGAGGTGACATCGTGGGC	Insertion	1	27	4370	1	2	0.3333333333333333	True	1	1	True	0.006178489702517162	High_Precision	True	True	True	5C-L	61	5C	Not flagged	High_Precision	Positive	31	B503
