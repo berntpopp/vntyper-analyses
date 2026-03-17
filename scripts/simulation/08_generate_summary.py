@@ -305,8 +305,7 @@ def generate_figures(results_base: Path, cfg: dict, logger):
                 plt.close(fig)
                 logger.info("  fig_per_mutation_coverage_heatmap")
 
-    # Figure 4: VNTR length vs detection — box+strip plots with Mann-Whitney U
-    # Combine both experiments for a single combined figure, plus per-experiment
+    # Figure 4: VNTR length vs detection — 2x3 panel (rows: total/allele, cols: dupC/atypical/combined)
     from scipy.stats import mannwhitneyu
 
     all_mutated = []
@@ -322,99 +321,75 @@ def generate_figures(results_base: Path, cfg: dict, logger):
     if all_mutated:
         combined = pd.concat(all_mutated, ignore_index=True)
 
-        # Generate figures for two length metrics
         length_configs = [
-            ("total_length", "Total VNTR Length (both alleles, repeats)"),
-            ("mutated_allele_length", "Mutated Allele Length (repeats)"),
+            ("total_length", "Total VNTR length\n(both alleles, repeats)"),
+            ("mutated_allele_length", "Mutated allele length\n(repeats)"),
         ]
+        # Only keep metrics that exist in the data
+        length_configs = [(c, l) for c, l in length_configs if c in combined.columns]
 
-        for length_col, length_label in length_configs:
-            if length_col not in combined.columns:
-                continue
-            plot_df = combined.dropna(subset=[length_col]).copy()
-            if len(plot_df) == 0:
-                continue
+        exp_labels = list(combined["experiment"].unique()) + ["Combined"]
 
-            col_suffix = "total" if "total" in length_col else "allele"
-
-            # Per-experiment figures
-            for exp_label in plot_df["experiment"].unique():
-                exp_df = plot_df[plot_df["experiment"] == exp_label]
-                tp_vals = exp_df.loc[exp_df["classification"] == "TP", length_col]
-                fn_vals = exp_df.loc[exp_df["classification"] == "FN", length_col]
-
-                fig, ax = plt.subplots(figsize=(6, 5))
-                sns.boxplot(
-                    data=exp_df, x="classification", y=length_col,
-                    order=["TP", "FN"], palette={"TP": "#2ca02c", "FN": "#d62728"},
-                    width=0.5, ax=ax, showfliers=False,
-                )
-                sns.stripplot(
-                    data=exp_df, x="classification", y=length_col,
-                    order=["TP", "FN"], palette={"TP": "#2ca02c", "FN": "#d62728"},
-                    alpha=0.4, size=4, jitter=True, ax=ax,
-                )
-
-                # Mann-Whitney U test
-                if len(tp_vals) > 0 and len(fn_vals) > 0:
-                    stat, pval = mannwhitneyu(tp_vals, fn_vals, alternative="two-sided")
-                    p_text = f"p = {pval:.2e}" if pval < 0.001 else f"p = {pval:.3f}"
-                    ax.text(
-                        0.5, 0.95, f"Mann-Whitney U: {p_text}",
-                        transform=ax.transAxes, ha="center", va="top",
-                        fontsize=10, style="italic",
-                        bbox=dict(boxstyle="round,pad=0.3", facecolor="wheat", alpha=0.5),
-                    )
-
-                ax.set_xlabel("Detection Outcome")
-                ax.set_ylabel(length_label)
-                ax.set_title(f"{exp_label}: {length_label} by Detection")
-                plt.tight_layout()
-                for ext in ["png", "svg"]:
-                    fig.savefig(
-                        figures_dir / f"fig_vntr_{col_suffix}_vs_detection_{exp_label}.{ext}",
-                        dpi=300,
-                    )
-                plt.close(fig)
-                logger.info(f"  fig_vntr_{col_suffix}_vs_detection_{exp_label}")
-
-            # Combined figure (both experiments)
-            tp_vals = plot_df.loc[plot_df["classification"] == "TP", length_col]
-            fn_vals = plot_df.loc[plot_df["classification"] == "FN", length_col]
-
-            fig, ax = plt.subplots(figsize=(6, 5))
-            sns.boxplot(
-                data=plot_df, x="classification", y=length_col,
-                order=["TP", "FN"], palette={"TP": "#2ca02c", "FN": "#d62728"},
-                width=0.5, ax=ax, showfliers=False,
-            )
-            sns.stripplot(
-                data=plot_df, x="classification", y=length_col,
-                order=["TP", "FN"], palette={"TP": "#2ca02c", "FN": "#d62728"},
-                alpha=0.3, size=4, jitter=True, ax=ax,
+        if length_configs:
+            fig, axes = plt.subplots(
+                len(length_configs), len(exp_labels),
+                figsize=(4 * len(exp_labels), 4.5 * len(length_configs)),
+                squeeze=False,
             )
 
-            if len(tp_vals) > 0 and len(fn_vals) > 0:
-                stat, pval = mannwhitneyu(tp_vals, fn_vals, alternative="two-sided")
-                p_text = f"p = {pval:.2e}" if pval < 0.001 else f"p = {pval:.3f}"
-                ax.text(
-                    0.5, 0.95, f"Mann-Whitney U: {p_text}\n(n={len(tp_vals)} TP, {len(fn_vals)} FN)",
-                    transform=ax.transAxes, ha="center", va="top",
-                    fontsize=10, style="italic",
-                    bbox=dict(boxstyle="round,pad=0.3", facecolor="wheat", alpha=0.5),
-                )
+            for row, (length_col, length_label) in enumerate(length_configs):
+                for col, exp_label in enumerate(exp_labels):
+                    ax = axes[row, col]
+                    if exp_label == "Combined":
+                        plot_df = combined.dropna(subset=[length_col])
+                    else:
+                        plot_df = combined[combined["experiment"] == exp_label].dropna(subset=[length_col])
 
-            ax.set_xlabel("Detection Outcome")
-            ax.set_ylabel(length_label)
-            ax.set_title(f"All Experiments: {length_label} by Detection")
+                    if len(plot_df) == 0:
+                        ax.set_visible(False)
+                        continue
+
+                    sns.boxplot(
+                        data=plot_df, x="classification", y=length_col,
+                        order=["TP", "FN"],
+                        hue="classification", hue_order=["TP", "FN"],
+                        palette={"TP": "#2ca02c", "FN": "#d62728"},
+                        width=0.5, ax=ax, showfliers=False, legend=False,
+                    )
+                    sns.stripplot(
+                        data=plot_df, x="classification", y=length_col,
+                        order=["TP", "FN"],
+                        hue="classification", hue_order=["TP", "FN"],
+                        palette={"TP": "#2ca02c", "FN": "#d62728"},
+                        alpha=0.4, size=4, jitter=True, ax=ax, legend=False,
+                    )
+
+                    tp_vals = plot_df.loc[plot_df["classification"] == "TP", length_col]
+                    fn_vals = plot_df.loc[plot_df["classification"] == "FN", length_col]
+                    if len(tp_vals) > 0 and len(fn_vals) > 0:
+                        _, pval = mannwhitneyu(tp_vals, fn_vals, alternative="two-sided")
+                        p_text = f"p={pval:.2e}" if pval < 0.001 else f"p={pval:.3f}"
+                        ax.text(
+                            0.5, 0.97,
+                            f"{p_text}\nn={len(tp_vals)}+{len(fn_vals)}",
+                            transform=ax.transAxes, ha="center", va="top",
+                            fontsize=9, style="italic",
+                            bbox=dict(boxstyle="round,pad=0.2", facecolor="wheat", alpha=0.5),
+                        )
+
+                    ax.set_xlabel("")
+                    ax.set_ylabel(length_label if col == 0 else "")
+                    ax.set_title(exp_label if row == 0 else "")
+
+            fig.suptitle("VNTR Length vs Detection Outcome", fontsize=14, y=1.01)
             plt.tight_layout()
             for ext in ["png", "svg"]:
                 fig.savefig(
-                    figures_dir / f"fig_vntr_{col_suffix}_vs_detection_combined.{ext}",
-                    dpi=300,
+                    figures_dir / f"fig_vntr_length_vs_detection.{ext}",
+                    dpi=300, bbox_inches="tight",
                 )
             plt.close(fig)
-            logger.info(f"  fig_vntr_{col_suffix}_vs_detection_combined")
+            logger.info("  fig_vntr_length_vs_detection")
 
 
 def main():
