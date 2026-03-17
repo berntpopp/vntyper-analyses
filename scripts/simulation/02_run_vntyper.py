@@ -55,7 +55,7 @@ def main():
             seed = pair["seed"]
             pair_name = f"pair_{seed}"
             for condition in ["normal", "mut"]:
-                bam = muconeup_dir / pair_name / f"{pair_name}.001.{condition}.simulated_reads.bam"
+                bam = muconeup_dir / pair_name / f"{pair_name}.001.{condition}.simulated.bam"
                 out = vntyper_dir / pair_name / ("normal" if condition == "normal" else "mutated")
                 tasks.append((bam, out))
 

@@ -18,29 +18,39 @@ class TestParseKestrelResult:
         from importlib import import_module
         mod = import_module("06_parse_vntyper_results")
 
-        # Create a minimal kestrel_result.tsv with a positive call
+        # VNtyper 2.x format with ## comment lines
         tsv_content = (
-            "CHROM\tPOS\tREF\tALT\tVariant_Type\tAllele_Change\t"
-            "Confidence\tDepth_Score\tHaplo_Count\tFlag\n"
-            "chr1\t155192276\tG\tGC\tFrameshift\tc.27dupC\t"
-            "High_Precision\t0.95\t2\tNot flagged\n"
+            "## VNtyper Kestrel result\n"
+            "## VNtyper Version: 2.0.1\n"
+            "Motifs\tPOS\tREF\tALT\tSample\tMotif_sequence\tVariant\tDel\t"
+            "Estimated_Depth_AlternateVariant\tEstimated_Depth_Variant_ActiveRegion\t"
+            "ref_len\talt_len\tFrame_Score\tis_frameshift\tdirection\tframeshift_amount\t"
+            "is_valid_frameshift\tDepth_Score\tConfidence\tdepth_confidence_pass\t"
+            "haplo_count\talt_filter_pass\tmotif_filter_pass\tMotif_fasta\tPOS_fasta\tMotif\tFlag\n"
+            "K-Q\t67\tG\tGG\t1:726:16689\tACGT\tInsertion\t1\t726\t16689\t"
+            "1\t2\t0.333\tTrue\t1\t1\tTrue\t0.043\tHigh_Precision*\tTrue\t"
+            "386\tTrue\tTrue\tK-Q\t67\tK\tNot flagged\n"
         )
         tsv_file = tmp_path / "kestrel_result.tsv"
         tsv_file.write_text(tsv_content)
 
         result = mod.parse_kestrel_result(tsv_file)
-        assert result["kestrel_call"] == "c.27dupC"
-        assert result["confidence"] == "High_Precision"
+        assert result["kestrel_call"] == "Insertion"
+        assert result["confidence"] == "High_Precision*"
         assert result["is_frameshift"] is True
 
     def test_parse_negative_result(self, tmp_path):
         from importlib import import_module
         mod = import_module("06_parse_vntyper_results")
 
-        # Empty result (header only)
+        # VNtyper 2.x negative result format
         tsv_content = (
-            "CHROM\tPOS\tREF\tALT\tVariant_Type\tAllele_Change\t"
-            "Confidence\tDepth_Score\tHaplo_Count\tFlag\n"
+            "## VNtyper Kestrel result\n"
+            "## VNtyper Version: 2.0.1\n"
+            "Motif\tVariant\tPOS\tREF\tALT\tMotif_sequence\t"
+            "Estimated_Depth_AlternateVariant\tEstimated_Depth_Variant_ActiveRegion\t"
+            "Depth_Score\tConfidence\n"
+            "None\tNone\tNone\tNone\tNone\tNone\tNone\tNone\tNone\tNegative\n"
         )
         tsv_file = tmp_path / "kestrel_result.tsv"
         tsv_file.write_text(tsv_content)
@@ -54,10 +64,15 @@ class TestParseKestrelResult:
         mod = import_module("06_parse_vntyper_results")
 
         tsv_content = (
-            "CHROM\tPOS\tREF\tALT\tVariant_Type\tAllele_Change\t"
-            "Confidence\tDepth_Score\tHaplo_Count\tFlag\n"
-            "chr1\t155192276\tG\tGCCCC\tInsertion\tc.27_28insCCCC\t"
-            "Low_Precision\t0.3\t1\tFalse_Positive_4bp_Insertion\n"
+            "## VNtyper Kestrel result\n"
+            "Motifs\tPOS\tREF\tALT\tSample\tMotif_sequence\tVariant\tDel\t"
+            "Estimated_Depth_AlternateVariant\tEstimated_Depth_Variant_ActiveRegion\t"
+            "ref_len\talt_len\tFrame_Score\tis_frameshift\tdirection\tframeshift_amount\t"
+            "is_valid_frameshift\tDepth_Score\tConfidence\tdepth_confidence_pass\t"
+            "haplo_count\talt_filter_pass\tmotif_filter_pass\tMotif_fasta\tPOS_fasta\tMotif\tFlag\n"
+            "K-Q\t67\tG\tGCCCC\t1:3:100\tACGT\tInsertion\t0\t3\t100\t"
+            "1\t5\t0.0\tFalse\t1\t0\tFalse\t0.3\tLow_Precision\tTrue\t"
+            "1\tTrue\tTrue\tK-Q\t67\tK\tFalse_Positive_4bp_Insertion\n"
         )
         tsv_file = tmp_path / "kestrel_result.tsv"
         tsv_file.write_text(tsv_content)

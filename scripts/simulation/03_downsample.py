@@ -59,7 +59,7 @@ def main():
             for condition in ["normal", "mut"]:
                 input_bam = (
                     muconeup_dir / pair_name /
-                    f"{pair_name}.001.{condition}.simulated_reads.bam"
+                    f"{pair_name}.001.{condition}.simulated.bam"
                 )
                 for frac in fractions:
                     output_bam = (

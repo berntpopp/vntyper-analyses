@@ -47,8 +47,8 @@ def simulate_pair(seed: int, mutation: str, pair_dir: Path,
     pair_dir_abs = str(pair_dir.resolve())
 
     # Check if already completed (both BAMs exist)
-    normal_bam = pair_dir / f"{pair_name}.001.normal.simulated_reads.bam"
-    mut_bam = pair_dir / f"{pair_name}.001.mut.simulated_reads.bam"
+    normal_bam = pair_dir / f"{pair_name}.001.normal.simulated.bam"
+    mut_bam = pair_dir / f"{pair_name}.001.mut.simulated.bam"
     if normal_bam.exists() and mut_bam.exists() and not force:
         return {"seed": seed, "status": "skipped", "time": 0.0}
 

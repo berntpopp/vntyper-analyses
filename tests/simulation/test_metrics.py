@@ -19,8 +19,8 @@ class TestClassifySample:
 
         row = {
             "condition": "mutated",
-            "kestrel_call": "c.27dupC",
-            "confidence": "High_Precision",
+            "kestrel_call": "Insertion",
+            "confidence": "High_Precision*",
             "flag": "Not flagged",
             "is_frameshift": True,
         }
@@ -45,8 +45,8 @@ class TestClassifySample:
 
         row = {
             "condition": "normal",
-            "kestrel_call": "c.27dupC",
-            "confidence": "High_Precision",
+            "kestrel_call": "Insertion",
+            "confidence": "High_Precision*",
             "flag": "Not flagged",
             "is_frameshift": True,
         }
@@ -72,7 +72,7 @@ class TestClassifySample:
 
         row = {
             "condition": "mutated",
-            "kestrel_call": "c.27_28insCCCC",
+            "kestrel_call": "Insertion",
             "confidence": "Low_Precision",
             "flag": "False_Positive_4bp_Insertion",
             "is_frameshift": False,

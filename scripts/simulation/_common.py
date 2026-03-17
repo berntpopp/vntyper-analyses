@@ -118,7 +118,7 @@ def _build_docker_vntyper_cmd(bam_path: Path, output_dir: Path,
     return [
         "docker", "run", "--rm",
         "-w", "/opt/vntyper",
-        "-v", f"{input_dir}:/opt/vntyper/input:ro",
+        "-v", f"{input_dir}:/opt/vntyper/input",
         "-v", f"{out_abs}:/opt/vntyper/output",
         "--user", f"{uid}:{gid}",
         docker_image,
@@ -143,20 +143,22 @@ def _build_docker_samtools_cmd(input_bam: Path, output_bam: Path,
         # Index: mount output dir read-write
         return [
             "docker", "run", "--rm",
+            "--entrypoint", "samtools",
             "-v", f"{out_abs.parent}:/data",
             "--user", f"{uid}:{gid}",
             docker_image,
-            "samtools", "index", f"/data/{out_abs.name}",
+            "index", f"/data/{out_abs.name}",
         ]
     else:
         # Downsample: mount input dir read-only, output dir read-write
         return [
             "docker", "run", "--rm",
+            "--entrypoint", "samtools",
             "-v", f"{in_abs.parent}:/input:ro",
             "-v", f"{out_abs.parent}:/output",
             "--user", f"{uid}:{gid}",
             docker_image,
-            "samtools", "view", "-b", "-s", samtools_arg,
+            "view", "-b", "-s", samtools_arg,
             f"/input/{in_abs.name}",
             "-o", f"/output/{out_abs.name}",
         ]

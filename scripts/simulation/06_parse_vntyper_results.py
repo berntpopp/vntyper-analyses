@@ -26,8 +26,14 @@ from _common import (
 
 
 def parse_kestrel_result(tsv_file: Path) -> Dict:
-    """Parse kestrel_result.tsv and return structured result dict."""
-    df = pd.read_csv(tsv_file, sep="\t")
+    """Parse kestrel_result.tsv and return structured result dict.
+
+    VNtyper 2.x kestrel output has:
+    - Comment lines starting with '##'
+    - Different column sets for positive vs negative results
+    - Key columns: Variant, Confidence, Depth_Score, Flag, is_frameshift, haplo_count
+    """
+    df = pd.read_csv(tsv_file, sep="\t", comment="#")
 
     if len(df) == 0:
         return {
@@ -41,16 +47,27 @@ def parse_kestrel_result(tsv_file: Path) -> Dict:
 
     # Take best variant (first row)
     row = df.iloc[0]
-    variant_type = str(row.get("Variant_Type", ""))
-    allele_change = str(row.get("Allele_Change", ""))
+    confidence = str(row.get("Confidence", "Negative"))
 
+    # Check for negative result
+    if confidence == "Negative" or str(row.get("Variant", "")) == "None":
+        return {
+            "kestrel_call": "",
+            "confidence": "Negative",
+            "depth_score": None,
+            "haplo_count": None,
+            "flag": "",
+            "is_frameshift": False,
+        }
+
+    variant = str(row.get("Variant", ""))
     return {
-        "kestrel_call": allele_change,
-        "confidence": str(row.get("Confidence", "Negative")),
+        "kestrel_call": variant,
+        "confidence": confidence,
         "depth_score": row.get("Depth_Score"),
-        "haplo_count": row.get("Haplo_Count"),
+        "haplo_count": row.get("haplo_count"),
         "flag": str(row.get("Flag", "")),
-        "is_frameshift": "Frameshift" in variant_type or "frameshift" in variant_type.lower(),
+        "is_frameshift": bool(row.get("is_frameshift", False)),
     }
 
 
