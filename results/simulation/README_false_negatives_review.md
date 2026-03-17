@@ -1,85 +1,45 @@
-# VNtyper 2 False Negatives — Review Package
+# VNtyper 2 False Negatives Review Package
 
-This archive contains the complete simulation and VNtyper 2 data for all 27 false negative samples from the simulation benchmark, prepared for manual review.
+Complete simulation and VNtyper 2 data for all 27 false negative samples plus 27 length-matched true positive controls, for manual review.
 
-## Simulation settings
+## Simulation parameters
 
 | Parameter | Value |
 |-----------|-------|
-| Tool | MucOneUp v0.28.1 |
-| VNTR length distribution | Normal, mean=60, min=20, max=130 repeats |
-| SD (derived) | (max-min)/4 = 27.5 repeats |
-| Read simulator | Illumina (ReSeq/WeSSim) |
-| Coverage | 150x (non-VNTR downsampling mode) |
+| Simulation tool | MucOneUp v0.28.1 |
+| VNTR length distribution | Normal(mean=60, SD=27.5, min=20, max=130 repeats) |
+| Read simulation | Illumina (ReSeq/WeSSim), 150x coverage |
 | Fragment size | 250 bp mean, 35 bp SD |
-| Read pairs | 10,000 per sample |
+| Read pairs per sample | 10,000 |
 | Enrichment profile | Twist Bioscience v2 exome |
 | Reference assembly | hg38 |
-
-## VNtyper 2 settings
-
-| Parameter | Value |
-|-----------|-------|
-| Tool | VNtyper 2.0.1 (Docker: saei/vntyper:latest) |
-| Mode | Normal (Kestrel genotyping, no --fast-mode) |
-| Reference | hg38 |
+| Genotyping tool | VNtyper 2.0.1 (Docker: saei/vntyper:latest) |
+| Genotyping mode | Normal (Kestrel, no --fast-mode) |
 
 ## False negative summary
 
-27 false negatives out of 200 mutated samples (173 TP, 0 FP across 200 matched pairs).
+27 FN out of 200 mutated samples (0 FP out of 200 wild-type controls).
 
-| Mutation | FN count | Total samples | Sensitivity |
-|----------|----------|---------------|-------------|
-| dupC | 6 | 100 | 94% |
-| insA_pos54 | 6 | 10 | 40% |
-| dupA | 4 | 10 | 60% |
-| delGCCCA | 3 | 10 | 70% |
-| insC_pos23 | 3 | 10 | 70% |
-| delinsAT | 2 | 10 | 80% |
-| ins25bp | 1 | 10 | 90% |
-| insG | 1 | 10 | 90% |
-| insG_pos58 | 1 | 10 | 90% |
+| Mutation | FN | N | Sensitivity | Citation |
+|----------|----|----|-------------|----------|
+| dupC | 6 | 100 | 94.0% | canonical |
+| insA_pos54 | 6 | 10 | 40.0% | Vrbacka 2025 |
+| dupA | 4 | 10 | 60.0% | Olinger 2020 |
+| delGCCCA | 3 | 10 | 70.0% | Saei 2023 |
+| insC_pos23 | 3 | 10 | 70.0% | Vrbacka 2025 |
+| delinsAT | 2 | 10 | 80.0% | Olinger 2020 |
+| ins25bp | 1 | 10 | 90.0% | Saei 2023 |
+| insG | 1 | 10 | 90.0% | Olinger 2020 |
+| insG_pos58 | 1 | 10 | 90.0% | Vrbacka 2025 |
 
-FN total VNTR length: median 142 repeats (range 90-195).
-FN mutated allele length: median 82 repeats (range 52-111).
-Longer alleles are significantly associated with FN (Mann-Whitney U p=0.002 total, p=1.2e-04 mutated allele).
-
-## Archive structure
-
-```
-results/simulation/
-├── experiment{1,2}_*/
-│   ├── muconeup/pair_XXXX/         # Per FN pair: simulation data
-│   │   ├── *.simulated.bam(.bai)   # Simulated BAMs (mutated + normal)
-│   │   ├── *.simulated.fa          # VNTR haplotype FASTAs
-│   │   ├── *_R1.fastq.gz           # Simulated reads
-│   │   ├── *_R2.fastq.gz
-│   │   ├── *.simulation_stats.json # Simulation parameters & haplotype details
-│   │   └── *.vntr_structure.txt    # Repeat unit chain per haplotype
-│   └── vntyper/pair_XXXX/mutated/  # VNtyper 2 output for mutated sample
-│       ├── kestrel/
-│       │   ├── kestrel_result.tsv  # Genotyping result (Negative for FNs)
-│       │   ├── output.vcf          # Raw Kestrel VCF
-│       │   └── output.bam(.bai)    # Kestrel alignment
-│       ├── pipeline_summary.json   # Pipeline metadata & timing
-│       ├── pipeline.log            # Full execution log
-│       └── summary_report.html     # Visual HTML report
-├── tables/
-│   ├── comprehensive_all_samples.* # All 400 samples with full metadata
-│   ├── supp_table_false_negatives.*# FN detail table
-│   ├── main_table_performance.*    # Overall performance metrics
-│   └── supp_table_per_mutation.*   # Per-mutation sensitivity
-└── figures/
-    ├── fig_per_mutation_sensitivity.png
-    └── fig_vntr_length_vs_detection.png
-```
+VNTR length is significantly longer in FN samples (Mann-Whitney U p = 0.002 total length, p = 1.2e-04 mutated allele length).
 
 ## Matched true positive controls
 
-For each mutation type with FNs, 3 TP samples with the closest total VNTR length to the FN median are included for direct comparison. This allows side-by-side review of why one sample was detected and another was not, controlling for VNTR length.
+For each mutation type, 3 TP samples with the closest total VNTR length to the FN median are included for side-by-side comparison.
 
-| Mutation | FN pairs | Matched TP pairs (by VNTR length) |
-|----------|----------|-----------------------------------|
+| Mutation | FN pairs | Matched TP pairs |
+|----------|----------|------------------|
 | dupC | 3002, 3014, 3041, 3068, 3081, 3090 | 3063, 3060, 3012 |
 | insA_pos54 | 4070, 4073, 4074, 4075, 4076, 4078 | 4072, 4079, 4077 |
 | dupA | 4013, 4014, 4016, 4019 | 4010, 4018, 4017 |
@@ -90,13 +50,34 @@ For each mutation type with FNs, 3 TP samples with the closest total VNTR length
 | insG | 4005 | 4006, 4007, 4003 |
 | insG_pos58 | 4058 | 4054, 4059, 4056 |
 
-## How to review a false negative
+## Archive contents
 
-1. Open `tables/supp_table_false_negatives.xlsx` for the summary
-2. For a specific pair (e.g., pair_3002):
-   - Check haplotype structure: `muconeup/pair_3002/*.simulation_stats.json`
-   - View the simulated VNTR: `muconeup/pair_3002/*.vntr_structure.txt`
-   - Inspect VNtyper result: `vntyper/pair_3002/mutated/kestrel/kestrel_result.tsv`
-   - Check coverage: `vntyper/pair_3002/mutated/pipeline_summary.json` (Coverage Calculation step)
-   - Full log: `vntyper/pair_3002/mutated/pipeline.log`
-   - Load BAM in IGV: `muconeup/pair_3002/pair_3002.001.mut.simulated.bam`
+Per sample pair directory:
+
+```
+muconeup/pair_XXXX/
+  *.simulated.bam(.bai)          Simulated BAMs (mutated + normal)
+  *.simulated.fa                 VNTR haplotype FASTAs
+  *_R1.fastq.gz, *_R2.fastq.gz  Simulated reads
+  *.simulation_stats.json        Haplotype lengths, mutation details, GC content
+  *.vntr_structure.txt           Repeat unit chain per haplotype
+
+vntyper/pair_XXXX/mutated/
+  kestrel/kestrel_result.tsv     Genotyping result
+  kestrel/output.vcf             Kestrel VCF
+  kestrel/output.bam(.bai)       Kestrel alignment
+  pipeline_summary.json          Step timing, coverage stats
+  pipeline.log                   Full execution log
+  summary_report.html            Visual report
+```
+
+Summary files included: `comprehensive_all_samples.xlsx`, `supp_table_false_negatives.xlsx`, `main_table_performance.tsv`, `supp_table_per_mutation.tsv`, figures.
+
+## How to review
+
+1. Open `tables/supp_table_false_negatives.xlsx` for the FN overview
+2. Compare an FN with its matched TP (same mutation, similar VNTR length):
+   - Haplotype structure: `*.simulation_stats.json` and `*.vntr_structure.txt`
+   - Kestrel result: `kestrel/kestrel_result.tsv`
+   - Coverage: `pipeline_summary.json` (Coverage Calculation step)
+   - BAM in IGV: `muconeup/pair_XXXX/*.simulated.bam`
