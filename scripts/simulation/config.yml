@@ -1,0 +1,117 @@
+# Simulation experiment configuration
+# All parameters for the 3-experiment MUC1 VNTR simulation benchmark
+
+# Paths (relative to vntyper-analyses working directory)
+paths:
+  muconeup_config: "../MucOneUp/config.json"
+  results_base: "results/simulation"
+  results_test_base: "results/simulation_test"
+
+# VNTR length distribution (Vrbacka et al. 2025)
+vntr:
+  distribution: normal
+  mean_repeats: 60
+  sd_repeats: 15
+  min_repeats: 20
+  max_repeats: 130
+
+# Read simulation parameters
+read_simulation:
+  simulator: illumina
+  coverage: 150
+  read_number: 10000
+  fragment_size: 250
+  fragment_sd: 35
+  downsample_mode: non_vntr
+  reference_assembly: hg38
+
+# Experiment 1: Canonical dupC
+experiment1:
+  name: "dupC"
+  dir_name: "experiment1_dupC"
+  mutation: "dupC"
+  seed_start: 3000
+  seed_end: 3099
+  n_pairs: 100
+
+# Experiment 2: Atypical frameshifts
+experiment2:
+  name: "atypical"
+  dir_name: "experiment2_atypical"
+  mutations:
+    # seeds: [start_inclusive, end_inclusive] — range generates start..end
+    - name: "insG"
+      seeds: [4000, 4009]
+    - name: "dupA"
+      seeds: [4010, 4019]
+    - name: "delinsAT"
+      seeds: [4020, 4029]
+    - name: "insCCCC"
+      seeds: [4030, 4039]
+    - name: "insC_pos23"
+      seeds: [4040, 4049]
+    - name: "insG_pos58"
+      seeds: [4050, 4059]
+    - name: "insG_pos54"
+      seeds: [4060, 4069]
+    - name: "insA_pos54"
+      seeds: [4070, 4079]
+    - name: "delGCCCA"
+      seeds: [4080, 4089]
+    - name: "ins25bp"
+      seeds: [4090, 4099]
+  n_pairs: 100
+
+# Experiment 3: Coverage titration
+experiment3:
+  name: "coverage"
+  dir_name: "experiment3_coverage"
+  fractions:
+    - label: "ds75"
+      value: 0.7500
+      samtools_arg: "42.7500"
+    - label: "ds50"
+      value: 0.5000
+      samtools_arg: "42.5000"
+    - label: "ds25"
+      value: 0.2500
+      samtools_arg: "42.2500"
+    - label: "ds12"
+      value: 0.1250
+      samtools_arg: "42.1250"
+    - label: "ds6"
+      value: 0.0625
+      samtools_arg: "42.0625"
+
+# Smoke test subset
+test:
+  experiment1:
+    seed_start: 3000
+    seed_end: 3004
+    n_pairs: 5
+  experiment2:
+    # First 5 mutations, 1 pair each
+    seeds: [4000, 4010, 4020, 4030, 4040]
+    n_pairs: 5
+
+# Parallelism
+workers:
+  # MucOneUp simulation: BWA-MEM uses ~4-5GB RAM per instance
+  # 8 workers x ~5GB = ~40GB, safe for 60GB system
+  simulate: 8
+  simulate_threads: 2
+  # VNtyper via Docker: memory-heavy, use fewer workers
+  vntyper: 4
+  # samtools downsampling: IO-bound, can use many workers
+  downsample: 16
+  # Defaults for test mode
+  test: 4
+
+# VNtyper settings
+vntyper:
+  reference_assembly: hg38
+  timeout_seconds: 1200
+  # Docker execution: set use_docker to true to run VNtyper and samtools
+  # via the saei/vntyper Docker image instead of host-installed binaries
+  use_docker: true
+  docker_image: "saei/vntyper:latest"

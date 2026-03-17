@@ -1,4 +1,17 @@
-.DS_Store 
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Simulation results — BAMs, intermediate files, and large outputs
+# Only final summaries (tables/, figures/, variables_fragment.yml) are committed
+results/simulation/experiment*/muconeup/
+results/simulation/experiment*/vntyper/
+results/simulation/experiment3_coverage/downsampled/
+results/simulation/experiment3_coverage/vntyper/
+results/simulation_test/
 
 # claude files and folders
 .claude/

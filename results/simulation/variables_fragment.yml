@@ -1,0 +1,141 @@
+results:
+  simulation_dupC:
+    n_pairs: 100
+    tp: 94.0
+    tn: 100.0
+    fp: 0.0
+    fn: 6.0
+    sensitivity: 0.94
+    sensitivity_ci_low: 0.8752
+    sensitivity_ci_high: 0.9722
+    specificity: 1.0
+    specificity_ci_low: 0.963
+    specificity_ci_high: 1.0
+    ppv: 1.0
+    npv: 0.9434
+    f1_score: 0.9691
+  simulation_atypical:
+    n_pairs: 100
+    tp: 79.0
+    tn: 100.0
+    fp: 0.0
+    fn: 21.0
+    sensitivity: 0.79
+    sensitivity_ci_low: 0.7002
+    sensitivity_ci_high: 0.8583
+    specificity: 1.0
+    specificity_ci_low: 0.963
+    specificity_ci_high: 1.0
+    ppv: 1.0
+    npv: 0.8264
+    f1_score: 0.8827
+    per_mutation:
+      delGCCCA:
+        n: 10
+        tp: 7
+        fn: 3
+        sensitivity: 0.7
+        sensitivity_ci_low: 0.3968
+        sensitivity_ci_high: 0.8922
+      delinsAT:
+        n: 10
+        tp: 8
+        fn: 2
+        sensitivity: 0.8
+        sensitivity_ci_low: 0.4902
+        sensitivity_ci_high: 0.9433
+      dupA:
+        n: 10
+        tp: 6
+        fn: 4
+        sensitivity: 0.6
+        sensitivity_ci_low: 0.3127
+        sensitivity_ci_high: 0.8318
+      ins25bp:
+        n: 10
+        tp: 9
+        fn: 1
+        sensitivity: 0.9
+        sensitivity_ci_low: 0.5958
+        sensitivity_ci_high: 0.9821
+      insA_pos54:
+        n: 10
+        tp: 4
+        fn: 6
+        sensitivity: 0.4
+        sensitivity_ci_low: 0.1682
+        sensitivity_ci_high: 0.6873
+      insCCCC:
+        n: 10
+        tp: 10
+        fn: 0
+        sensitivity: 1.0
+        sensitivity_ci_low: 0.7225
+        sensitivity_ci_high: 1.0
+      insC_pos23:
+        n: 10
+        tp: 7
+        fn: 3
+        sensitivity: 0.7
+        sensitivity_ci_low: 0.3968
+        sensitivity_ci_high: 0.8922
+      insG:
+        n: 10
+        tp: 9
+        fn: 1
+        sensitivity: 0.9
+        sensitivity_ci_low: 0.5958
+        sensitivity_ci_high: 0.9821
+      insG_pos54:
+        n: 10
+        tp: 10
+        fn: 0
+        sensitivity: 1.0
+        sensitivity_ci_low: 0.7225
+        sensitivity_ci_high: 1.0
+      insG_pos58:
+        n: 10
+        tp: 9
+        fn: 1
+        sensitivity: 0.9
+        sensitivity_ci_low: 0.5958
+        sensitivity_ci_high: 0.9821
+  simulation_coverage:
+    fractions:
+    - 100
+    - 50
+    - 25
+    - 12.5
+    - 6.25
+    dupC:
+      ds6.25:
+        sensitivity: 0.49
+        specificity: 1.0
+      ds12.5:
+        sensitivity: 0.78
+        specificity: 1.0
+      ds25:
+        sensitivity: 0.84
+        specificity: 1.0
+      ds50:
+        sensitivity: 0.92
+        specificity: 1.0
+      ds75:
+        sensitivity: 0.94
+        specificity: 1.0
+    atypical:
+      ds6.25:
+        sensitivity: 0.51
+        specificity: 1.0
+      ds12.5:
+        sensitivity: 0.74
+        specificity: 1.0
+      ds25:
+        sensitivity: 0.82
+        specificity: 1.0
+      ds50:
+        sensitivity: 0.83
+        specificity: 1.0
+      ds75:
+        sensitivity: 0.82
+        specificity: 1.0
