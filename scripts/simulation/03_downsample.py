@@ -32,7 +32,7 @@ def main():
     cfg = load_config()
 
     test_mode = args.test
-    workers = get_workers(cfg, args)
+    workers = get_workers(cfg, args, step="downsample")
     results_base = get_results_base(cfg, test_mode)
     experiments = get_experiments_to_run(args)
     fractions = cfg["experiment3"]["fractions"]

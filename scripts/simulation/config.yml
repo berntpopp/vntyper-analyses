@@ -67,6 +67,9 @@ experiment3:
   name: "coverage"
   dir_name: "experiment3_coverage"
   fractions:
+    - label: "ds75"
+      value: 0.7500
+      samtools_arg: "42.7500"
     - label: "ds50"
       value: 0.5000
       samtools_arg: "42.5000"
@@ -93,9 +96,15 @@ test:
 
 # Parallelism
 workers:
-  default: 16
+  # MucOneUp simulation: CPU-bound, use many workers with few threads each
+  simulate: 16
+  simulate_threads: 2
+  # VNtyper via Docker: memory-heavy, use fewer workers
+  vntyper: 4
+  # samtools downsampling: IO-bound, can use many workers
+  downsample: 16
+  # Defaults for test mode
   test: 4
-  threads_per_job: 2
 
 # VNtyper settings
 vntyper:

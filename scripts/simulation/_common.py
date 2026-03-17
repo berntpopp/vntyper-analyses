@@ -92,11 +92,19 @@ def build_common_parser(description: str) -> argparse.ArgumentParser:
     return parser
 
 
-def get_workers(cfg: Dict, args) -> int:
-    """Resolve worker count from args or config."""
+def get_workers(cfg: Dict, args, step: str = "simulate") -> int:
+    """Resolve worker count from args or config.
+
+    Args:
+        cfg: Config dict.
+        args: Parsed CLI args.
+        step: One of 'simulate', 'vntyper', 'downsample'.
+    """
     if args.workers is not None:
         return args.workers
-    return cfg["workers"]["test"] if args.test else cfg["workers"]["default"]
+    if args.test:
+        return cfg["workers"]["test"]
+    return cfg["workers"].get(step, 16)
 
 
 def _build_docker_vntyper_cmd(bam_path: Path, output_dir: Path,

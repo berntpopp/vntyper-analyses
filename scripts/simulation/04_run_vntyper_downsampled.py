@@ -28,7 +28,7 @@ def main():
     cfg = load_config()
 
     test_mode = args.test
-    workers = get_workers(cfg, args)
+    workers = get_workers(cfg, args, step="vntyper")
     results_base = get_results_base(cfg, test_mode)
     experiments = get_experiments_to_run(args)
     reference = cfg["vntyper"]["reference_assembly"]

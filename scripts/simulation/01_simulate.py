@@ -121,7 +121,7 @@ def main():
     cfg = load_config()
 
     test_mode = args.test
-    workers = get_workers(cfg, args)
+    workers = get_workers(cfg, args, step="simulate")
     results_base = get_results_base(cfg, test_mode)
     experiments = get_experiments_to_run(args)
     muconeup_config_rel = cfg["paths"]["muconeup_config"]
@@ -130,7 +130,7 @@ def main():
     # run subprocess from its root directory
     muconeup_config_abs = str(Path(muconeup_config_rel).resolve())
     muconeup_cwd = str(Path(muconeup_config_rel).resolve().parent)
-    threads = cfg["workers"]["threads_per_job"]
+    threads = cfg["workers"].get("simulate_threads", 2)
     ref = cfg["read_simulation"]["reference_assembly"]
 
     logger = setup_logging("01_simulate")
