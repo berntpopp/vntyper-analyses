@@ -108,10 +108,10 @@ results:
     - 12.5
     - 6.25
     dupC:
-      ds6:
+      ds6.25:
         sensitivity: 0.49
         specificity: 1.0
-      ds12:
+      ds12.5:
         sensitivity: 0.78
         specificity: 1.0
       ds25:
@@ -124,10 +124,10 @@ results:
         sensitivity: 0.94
         specificity: 1.0
     atypical:
-      ds6:
+      ds6.25:
         sensitivity: 0.51
         specificity: 1.0
-      ds12:
+      ds12.5:
         sensitivity: 0.74
         specificity: 1.0
       ds25:

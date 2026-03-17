@@ -67,7 +67,7 @@ def parse_kestrel_result(tsv_file: Path) -> Dict:
         "depth_score": row.get("Depth_Score"),
         "haplo_count": row.get("haplo_count"),
         "flag": str(row.get("Flag", "")),
-        "is_frameshift": bool(row.get("is_frameshift", False)),
+        "is_frameshift": str(row.get("is_frameshift", "")).strip().lower() == "true",
     }
 
 
@@ -77,7 +77,7 @@ def extract_coverage(summary_file: Path) -> Dict:
         summary = json.load(f)
 
     for step in summary.get("steps", []):
-        if step["step"] == "Coverage Calculation":
+        if step.get("step") == "Coverage Calculation":
             data = step.get("parsed_result", {}).get("data", [])
             if data:
                 cov = data[0]
@@ -199,7 +199,8 @@ def main():
                     result = parse_vntyper_output(out_dir)
                     result["pair_id"] = pair_name
                     result["condition"] = condition_label
-                    result["coverage_fraction"] = int(frac["value"] * 100)
+                    result["coverage_fraction"] = frac["value"] * 100  # float: 12.5, 6.25
+                    result["coverage_label"] = frac["label"]
                     result["source_experiment"] = cfg[f"experiment{exp_num}"]["name"]
                     all_ds_rows.append(result)
 

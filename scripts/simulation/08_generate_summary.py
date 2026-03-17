@@ -186,9 +186,9 @@ def generate_tables(results_base: Path, cfg: dict, logger):
     # ── Supplementary Table 2: Coverage titration ──
     if exp3_metrics_path.exists():
         df3 = pd.read_csv(exp3_metrics_path)
-        cov = df3[df3["subset"].str.match(r"^(dupC|atypical)_ds\d+$")].copy()
+        cov = df3[df3["subset"].str.match(r"^(dupC|atypical)_ds[\d.]+$")].copy()
         cov["source"] = cov["subset"].str.extract(r"^(\w+)_ds")[0]
-        cov["fraction"] = cov["subset"].str.extract(r"_ds(\d+)$")[0].astype(int)
+        cov["fraction"] = cov["subset"].str.extract(r"_ds([\d.]+)$")[0].astype(float)
 
         # Add 100% baseline
         baseline_rows = []
@@ -209,7 +209,7 @@ def generate_tables(results_base: Path, cfg: dict, logger):
         for _, r in cov.sort_values(["source", "fraction"], ascending=[True, False]).iterrows():
             cov_rows.append({
                 "Experiment": r["source"],
-                "Coverage (%)": int(r["fraction"]),
+                "Coverage (%)": r["fraction"],
                 "N positive": int(r["n_positive"]),
                 "N negative": int(r["n_negative"]),
                 "Sensitivity": _fmt_ci(r["sensitivity"], r["sensitivity_ci_low"], r["sensitivity_ci_high"]),
@@ -239,7 +239,7 @@ def generate_tables(results_base: Path, cfg: dict, logger):
             mut_cov = pd.concat([mut_cov, pd.DataFrame(baseline_rows)], ignore_index=True)
 
         mut_cov["Mutation"] = mut_cov["subset"].str.extract(r"^(.+?)_ds")[0]
-        mut_cov["Coverage (%)"] = mut_cov["subset"].str.extract(r"_ds(\d+)$")[0].astype(int)
+        mut_cov["Coverage (%)"] = mut_cov["subset"].str.extract(r"_ds([\d.]+)$")[0].astype(float)
 
         pivot = mut_cov.pivot_table(values="sensitivity", index="Mutation", columns="Coverage (%)")
         if not pivot.empty:
@@ -474,7 +474,7 @@ def generate_figures(results_base: Path, cfg: dict, logger):
     exp3_metrics = results_base / cfg["experiment3"]["dir_name"] / "performance_metrics.csv"
     if exp3_metrics.exists():
         df = pd.read_csv(exp3_metrics)
-        cov_df = df[df["subset"].str.match(r"^(dupC|atypical)_ds\d+$")].copy()
+        cov_df = df[df["subset"].str.match(r"^(dupC|atypical)_ds[\d.]+$")].copy()
 
         # Add 100% baseline from exp1 (dupC) and exp2 (atypical)
         baseline_rows = []
@@ -493,7 +493,7 @@ def generate_figures(results_base: Path, cfg: dict, logger):
 
         if len(cov_df) > 0:
             cov_df["source"] = cov_df["subset"].str.extract(r"^(\w+)_ds")[0]
-            cov_df["fraction"] = cov_df["subset"].str.extract(r"_ds(\d+)$")[0].astype(int)
+            cov_df["fraction"] = cov_df["subset"].str.extract(r"_ds([\d.]+)$")[0].astype(float)
 
             fig, ax = plt.subplots(figsize=(8, 5))
             for src, grp in cov_df.groupby("source"):
@@ -595,7 +595,7 @@ def generate_figures(results_base: Path, cfg: dict, logger):
 
         if len(mut_cov) > 0:
             mut_cov["mutation"] = mut_cov["subset"].str.extract(r"^(.+?)_ds")[0]
-            mut_cov["fraction"] = mut_cov["subset"].str.extract(r"_ds(\d+)$")[0].astype(int)
+            mut_cov["fraction"] = mut_cov["subset"].str.extract(r"_ds([\d.]+)$")[0].astype(float)
             pivot = mut_cov.pivot_table(
                 values="sensitivity", index="mutation", columns="fraction"
             )

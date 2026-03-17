@@ -40,8 +40,14 @@ def parse_simulation_stats(stats_file: Path) -> Dict:
     # Mutation name
     mutation = stats.get("mutation_info", {}).get("mutation_name", "normal")
 
-    # Seed from provenance
+    # Seed from provenance, fallback to parsing from filename
     seed = stats.get("provenance", {}).get("seed")
+    if seed is None:
+        # Extract seed from filename pattern pair_XXXX.001.*.json
+        import re
+        match = re.search(r"pair_(\d+)", stats_file.name)
+        if match:
+            seed = int(match.group(1))
 
     # Haplotype lengths from haplotype_statistics array
     hap_stats = stats.get("haplotype_statistics", [])

@@ -78,6 +78,7 @@ class TestParseKestrelResult:
 
         result = mod.parse_kestrel_result(tsv_file)
         assert "False_Positive" in result["flag"]
+        assert result["is_frameshift"] is False
 
 
 class TestParsePipelineSummary:

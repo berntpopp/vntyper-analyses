@@ -33,10 +33,15 @@ def classify_sample(row: Dict) -> str:
     Classify a sample as TP, TN, FP, or FN.
 
     Rules:
-    - TP: mutated sample, unflagged frameshift call with non-Negative confidence
-    - TN: normal sample, no positive call
-    - FP: normal sample, unflagged positive call
-    - FN: mutated sample, no call or only flagged calls
+    - TP: mutated sample with an unflagged, non-Negative Kestrel call
+    - TN: normal sample with no positive call
+    - FP: normal sample with an unflagged, non-Negative call
+    - FN: mutated sample with no call, Negative confidence, or only flagged calls
+
+    Note: Kestrel only reports frameshift-causing variants, so any unflagged
+    positive call is inherently a frameshift detection. The is_frameshift field
+    is not checked separately because Kestrel's artifact flagging already
+    handles non-frameshift false positives (e.g., 4bp insertions).
     """
     is_mutated = row["condition"] == "mutated"
     has_call = bool(row.get("kestrel_call")) and row.get("confidence", "Negative") != "Negative"
@@ -223,7 +228,8 @@ def main():
             for (src, frac), grp in df3.groupby(["source_experiment", "coverage_fraction"]):
                 m = calculate_metrics(grp["classification"].tolist())
                 m["experiment"] = "coverage"
-                m["subset"] = f"{src}_ds{int(frac)}"
+                m["subset"] = f"{src}_ds{frac:g}"
+                m["aggregation"] = "overall"
                 metrics_rows_3.append(m)
 
             # Per mutation type at each fraction
@@ -239,7 +245,8 @@ def main():
                 m["sensitivity"] = mut_tp / (mut_tp + mut_fn) if (mut_tp + mut_fn) > 0 else 0.0
                 m["sensitivity_ci_low"], m["sensitivity_ci_high"] = wilson_ci(mut_tp, mut_tp + mut_fn)
                 m["experiment"] = "coverage"
-                m["subset"] = f"{mut}_ds{int(frac)}"
+                m["subset"] = f"{mut}_ds{frac:g}"
+                m["aggregation"] = "per_mutation"
                 metrics_rows_3.append(m)
 
             metrics_df_3 = pd.DataFrame(metrics_rows_3)

@@ -46,10 +46,13 @@ def simulate_pair(seed: int, mutation: str, pair_dir: Path,
     # Resolve to absolute so paths work regardless of cwd
     pair_dir_abs = str(pair_dir.resolve())
 
-    # Check if already completed (both BAMs exist and indexed)
+    # Check if already completed (both BAMs and their indices exist)
     normal_bam = pair_dir / f"{pair_name}.001.normal.simulated.bam"
     mut_bam = pair_dir / f"{pair_name}.001.mut.simulated.bam"
-    both_complete = normal_bam.exists() and mut_bam.exists()
+    normal_bai = Path(str(normal_bam) + ".bai")
+    mut_bai = Path(str(mut_bam) + ".bai")
+    both_complete = (normal_bam.exists() and mut_bam.exists()
+                     and normal_bai.exists() and mut_bai.exists())
     if both_complete and not force:
         return {"seed": seed, "status": "skipped", "time": 0.0}
 

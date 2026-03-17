@@ -199,9 +199,9 @@ def run_vntyper_on_bam(bam_path: Path, output_dir: Path,
     else:
         cmd = [
             "vntyper", "pipeline",
-            "--bam-file", str(bam_path),
+            "--bam", str(bam_path),
+            "-o", str(output_dir),
             "--reference-assembly", reference,
-            "--output-dir", str(output_dir),
         ]
 
     try:
