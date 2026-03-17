@@ -33,11 +33,15 @@ def main():
     experiments = get_experiments_to_run(args)
     reference = cfg["vntyper"]["reference_assembly"]
     timeout = cfg["vntyper"]["timeout_seconds"]
+    use_docker = cfg["vntyper"].get("use_docker", False)
+    docker_image = cfg["vntyper"].get("docker_image", "")
     fractions = cfg["experiment3"]["fractions"]
     exp3_dir_name = cfg["experiment3"]["dir_name"]
 
     logger = setup_logging("04_run_vntyper_downsampled")
     logger.info(f"Mode: {'TEST' if test_mode else 'PRODUCTION'}, workers={workers}")
+    if use_docker:
+        logger.info(f"Using Docker: {docker_image}")
 
     tasks = []
     for exp_num in experiments:
@@ -66,7 +70,8 @@ def main():
     with ProcessPoolExecutor(max_workers=workers) as executor:
         futures = {}
         for bam, out in tasks:
-            fut = executor.submit(run_vntyper_on_bam, bam, out, reference, timeout)
+            fut = executor.submit(run_vntyper_on_bam, bam, out, reference, timeout,
+                                 use_docker, docker_image)
             futures[fut] = bam.name
 
         for fut in as_completed(futures):

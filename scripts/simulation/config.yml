@@ -101,3 +101,7 @@ workers:
 vntyper:
   reference_assembly: hg38
   timeout_seconds: 1200
+  # Docker execution: set use_docker to true to run VNtyper and samtools
+  # via the saei/vntyper Docker image instead of host-installed binaries
+  use_docker: true
+  docker_image: "saei/vntyper:latest"

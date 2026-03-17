@@ -99,8 +99,73 @@ def get_workers(cfg: Dict, args) -> int:
     return cfg["workers"]["test"] if args.test else cfg["workers"]["default"]
 
 
+def _build_docker_vntyper_cmd(bam_path: Path, output_dir: Path,
+                              reference: str, docker_image: str) -> List[str]:
+    """Build a Docker command to run VNtyper on a BAM file.
+
+    Maps the BAM's parent dir as /input and the output dir as /output inside
+    the container, matching the pattern from the existing SLURM Docker scripts.
+    """
+    import os
+    bam_abs = bam_path.resolve()
+    out_abs = output_dir.resolve()
+    input_dir = bam_abs.parent
+    bam_name = bam_abs.name
+
+    uid = os.getuid()
+    gid = os.getgid()
+
+    return [
+        "docker", "run", "--rm",
+        "-w", "/opt/vntyper",
+        "-v", f"{input_dir}:/opt/vntyper/input:ro",
+        "-v", f"{out_abs}:/opt/vntyper/output",
+        "--user", f"{uid}:{gid}",
+        docker_image,
+        "vntyper", "pipeline",
+        "--bam", f"/opt/vntyper/input/{bam_name}",
+        "-o", "/opt/vntyper/output",
+        "--reference-assembly", reference,
+    ]
+
+
+def _build_docker_samtools_cmd(input_bam: Path, output_bam: Path,
+                                samtools_arg: str, docker_image: str,
+                                index: bool = False) -> List[str]:
+    """Build a Docker command to run samtools view or index."""
+    import os
+    in_abs = input_bam.resolve()
+    out_abs = output_bam.resolve()
+    uid = os.getuid()
+    gid = os.getgid()
+
+    if index:
+        # Index: mount output dir read-write
+        return [
+            "docker", "run", "--rm",
+            "-v", f"{out_abs.parent}:/data",
+            "--user", f"{uid}:{gid}",
+            docker_image,
+            "samtools", "index", f"/data/{out_abs.name}",
+        ]
+    else:
+        # Downsample: mount input dir read-only, output dir read-write
+        return [
+            "docker", "run", "--rm",
+            "-v", f"{in_abs.parent}:/input:ro",
+            "-v", f"{out_abs.parent}:/output",
+            "--user", f"{uid}:{gid}",
+            docker_image,
+            "samtools", "view", "-b", "-s", samtools_arg,
+            f"/input/{in_abs.name}",
+            "-o", f"/output/{out_abs.name}",
+        ]
+
+
 def run_vntyper_on_bam(bam_path: Path, output_dir: Path,
-                       reference: str, timeout: int) -> dict:
+                       reference: str, timeout: int,
+                       use_docker: bool = False,
+                       docker_image: str = "") -> dict:
     """Run VNtyper pipeline on a single BAM file. Used by scripts 02 and 04."""
     import subprocess
     import time
@@ -119,12 +184,15 @@ def run_vntyper_on_bam(bam_path: Path, output_dir: Path,
     output_dir.mkdir(parents=True, exist_ok=True)
     start = time.time()
 
-    cmd = [
-        "vntyper", "pipeline",
-        "--bam-file", str(bam_path),
-        "--reference-assembly", reference,
-        "--output-dir", str(output_dir),
-    ]
+    if use_docker:
+        cmd = _build_docker_vntyper_cmd(bam_path, output_dir, reference, docker_image)
+    else:
+        cmd = [
+            "vntyper", "pipeline",
+            "--bam-file", str(bam_path),
+            "--reference-assembly", reference,
+            "--output-dir", str(output_dir),
+        ]
 
     try:
         result = subprocess.run(
@@ -138,6 +206,54 @@ def run_vntyper_on_bam(bam_path: Path, output_dir: Path,
     except subprocess.TimeoutExpired:
         return {"bam": str(bam_path), "status": "timeout",
                 "time": time.time() - start}
+
+
+def run_samtools_downsample(input_bam: Path, output_bam: Path,
+                            samtools_arg: str, use_docker: bool = False,
+                            docker_image: str = "") -> dict:
+    """Downsample a BAM using samtools, optionally via Docker."""
+    import subprocess
+    import time
+
+    if output_bam.exists():
+        return {"bam": output_bam.name, "status": "skipped", "time": 0.0}
+    if not input_bam.exists():
+        return {"bam": output_bam.name, "status": "missing_input", "time": 0.0}
+
+    output_bam.parent.mkdir(parents=True, exist_ok=True)
+    start = time.time()
+
+    # Downsample
+    if use_docker:
+        cmd_view = _build_docker_samtools_cmd(
+            input_bam, output_bam, samtools_arg, docker_image, index=False
+        )
+    else:
+        cmd_view = [
+            "samtools", "view", "-b", "-s", samtools_arg,
+            str(input_bam), "-o", str(output_bam),
+        ]
+
+    result = subprocess.run(cmd_view, capture_output=True, text=True, timeout=300)
+    if result.returncode != 0:
+        return {"bam": output_bam.name, "status": "fail_view",
+                "error": result.stderr[:300], "time": time.time() - start}
+
+    # Index
+    if use_docker:
+        cmd_index = _build_docker_samtools_cmd(
+            input_bam, output_bam, "", docker_image, index=True
+        )
+    else:
+        cmd_index = ["samtools", "index", str(output_bam)]
+
+    result = subprocess.run(cmd_index, capture_output=True, text=True, timeout=120)
+    if result.returncode != 0:
+        return {"bam": output_bam.name, "status": "fail_index",
+                "error": result.stderr[:300], "time": time.time() - start}
+
+    return {"bam": output_bam.name, "status": "success",
+            "time": time.time() - start}
 
 
 def setup_logging(name: str, log_file: Path = None) -> logging.Logger:
