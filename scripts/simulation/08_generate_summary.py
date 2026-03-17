@@ -185,11 +185,29 @@ def generate_figures(results_base: Path, cfg: dict, logger):
     figures_dir = results_base / "figures"
     figures_dir.mkdir(parents=True, exist_ok=True)
 
-    # Figure 1: Coverage-sensitivity curve
+    # Figure 1: Coverage-sensitivity curve (includes 100% baseline from exp1/exp2)
+    exp1_metrics = results_base / cfg["experiment1"]["dir_name"] / "performance_metrics.csv"
+    exp2_metrics_path = results_base / cfg["experiment2"]["dir_name"] / "performance_metrics.csv"
     exp3_metrics = results_base / cfg["experiment3"]["dir_name"] / "performance_metrics.csv"
     if exp3_metrics.exists():
         df = pd.read_csv(exp3_metrics)
         cov_df = df[df["subset"].str.match(r"^(dupC|atypical)_ds\d+$")].copy()
+
+        # Add 100% baseline from exp1 (dupC) and exp2 (atypical)
+        baseline_rows = []
+        if exp1_metrics.exists():
+            df1 = pd.read_csv(exp1_metrics)
+            row100 = df1[df1["subset"] == "all"].iloc[0].to_dict()
+            row100["subset"] = "dupC_ds100"
+            baseline_rows.append(row100)
+        if exp2_metrics_path.exists():
+            df2_m = pd.read_csv(exp2_metrics_path)
+            row100 = df2_m[df2_m["subset"] == "all"].iloc[0].to_dict()
+            row100["subset"] = "atypical_ds100"
+            baseline_rows.append(row100)
+        if baseline_rows:
+            cov_df = pd.concat([cov_df, pd.DataFrame(baseline_rows)], ignore_index=True)
+
         if len(cov_df) > 0:
             cov_df["source"] = cov_df["subset"].str.extract(r"^(\w+)_ds")[0]
             cov_df["fraction"] = cov_df["subset"].str.extract(r"_ds(\d+)$")[0].astype(int)
@@ -204,9 +222,13 @@ def generate_figures(results_base: Path, cfg: dict, logger):
                     grp["sensitivity_ci_high"],
                     alpha=0.2,
                 )
+            # Mark the 100% baseline with a vertical dashed line
+            ax.axvline(x=100, color="grey", linestyle="--", alpha=0.5, linewidth=1)
+            ax.text(99, 0.03, "full\ncoverage", ha="right", va="bottom",
+                    fontsize=8, color="grey", style="italic")
             ax.set_xlabel("Coverage fraction (%)")
             ax.set_ylabel("Sensitivity")
-            ax.set_title("VNtyper Sensitivity vs Coverage Depth")
+            ax.set_title("VNtyper 2 Sensitivity vs Coverage Depth")
             ax.legend()
             ax.set_ylim(0, 1.05)
             ax.invert_xaxis()
@@ -250,7 +272,7 @@ def generate_figures(results_base: Path, cfg: dict, logger):
                 fmt="none", color="black", capsize=3,
             )
             ax.set_ylabel("Sensitivity")
-            ax.set_title("VNtyper Sensitivity by Mutation Type (Full Coverage)")
+            ax.set_title("VNtyper 2 Sensitivity by Mutation Type (Full Coverage)")
             ax.set_ylim(0, 1.05)
             # Add legend for dupC highlight
             from matplotlib.patches import Patch
@@ -265,12 +287,29 @@ def generate_figures(results_base: Path, cfg: dict, logger):
             plt.close(fig)
             logger.info("  fig_per_mutation_sensitivity")
 
-    # Figure 3: Per-mutation x coverage heatmap (includes dupC)
+    # Figure 3: Per-mutation x coverage heatmap (includes dupC + 100% baseline)
     if exp3_metrics.exists():
         df = pd.read_csv(exp3_metrics)
         # Include dupC aggregate rows AND individual atypical mutation rows
         # Exclude only the "atypical_ds*" aggregate rows and "all"
         mut_cov = df[~df["subset"].str.match(r"^(atypical_ds|all)")].copy()
+
+        # Add 100% baseline from exp1 (dupC) and exp2 per-mutation
+        baseline_rows = []
+        if exp1_metrics.exists():
+            df1 = pd.read_csv(exp1_metrics)
+            row100 = df1[df1["subset"] == "all"].iloc[0].to_dict()
+            row100["subset"] = "dupC_ds100"
+            baseline_rows.append(row100)
+        if exp2_metrics_path.exists():
+            df2_m = pd.read_csv(exp2_metrics_path)
+            for _, r in df2_m[df2_m["subset"] != "all"].iterrows():
+                row100 = r.to_dict()
+                row100["subset"] = f"{r['subset']}_ds100"
+                baseline_rows.append(row100)
+        if baseline_rows:
+            mut_cov = pd.concat([mut_cov, pd.DataFrame(baseline_rows)], ignore_index=True)
+
         if len(mut_cov) > 0:
             mut_cov["mutation"] = mut_cov["subset"].str.extract(r"^(.+?)_ds")[0]
             mut_cov["fraction"] = mut_cov["subset"].str.extract(r"_ds(\d+)$")[0].astype(int)
@@ -278,13 +317,13 @@ def generate_figures(results_base: Path, cfg: dict, logger):
                 values="sensitivity", index="mutation", columns="fraction"
             )
             if not pivot.empty:
-                # Sort columns descending (high coverage left)
+                # Sort columns descending (100% first)
                 pivot = pivot[sorted(pivot.columns, reverse=True)]
                 # Sort rows: dupC first, then alphabetical
                 row_order = ["dupC"] + sorted([m for m in pivot.index if m != "dupC"])
                 pivot = pivot.reindex([m for m in row_order if m in pivot.index])
 
-                fig, ax = plt.subplots(figsize=(8, 7))
+                fig, ax = plt.subplots(figsize=(9, 7))
                 sns.heatmap(
                     pivot, annot=True, fmt=".2f", cmap="YlOrRd_r",
                     vmin=0, vmax=1, ax=ax
@@ -295,6 +334,13 @@ def generate_figures(results_base: Path, cfg: dict, logger):
                     ax.add_patch(plt.Rectangle(
                         (0, dupc_idx), len(pivot.columns), 1,
                         fill=False, edgecolor="#d62728", linewidth=2.5
+                    ))
+                # Highlight 100% column with a box
+                if 100 in pivot.columns:
+                    col100_idx = list(pivot.columns).index(100)
+                    ax.add_patch(plt.Rectangle(
+                        (col100_idx, 0), 1, len(pivot.index),
+                        fill=False, edgecolor="grey", linewidth=2, linestyle="--"
                     ))
                 ax.set_title("Sensitivity: Mutation Type x Coverage Fraction")
                 ax.set_xlabel("Coverage fraction (%)")
