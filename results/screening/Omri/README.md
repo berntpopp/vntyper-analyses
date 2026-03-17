@@ -1,6 +1,6 @@
 # Omri - Irish Screening Cohort
 
-## Status: Partial (coverage only, missing Kestrel TSV)
+## Status: Complete (coverage + extracted Kestrel results)
 
 | Field | Value |
 |-------|-------|
@@ -18,7 +18,7 @@
 
 ## Genotyping Results
 
-Genotyping results are only available in the HTML reports. No Kestrel TSV/CSV file with variant calls has been provided yet.
+Genotyping results were extracted from the HTML reports using `scripts/extract_kestrel_from_html.py` in the manuscript repository.
 
 ## Files
 
@@ -28,10 +28,10 @@ Genotyping results are only available in the HTML reports. No Kestrel TSV/CSV fi
 | `summary_coverage_SlowMode.csv` | Coverage metrics, slow mode (954 samples) |
 | `summary_reults_vntyper_2.0.0-beta.3_fast_mode_Irish_cohort.html` | Fast mode cohort summary report |
 | `summary_reults_vntyper_2.0.0-beta.3_slow_mode_Irish_cohort.html` | Slow mode cohort summary report |
+| `kestrel_results_fast_mode_irish.csv` | **Generated:** Kestrel results extracted from fast mode HTML (954 samples) |
 
 ## Missing Data
 
-- Kestrel genotyping TSV/CSV with variant calls and classifications
 - Capture kit information
 
 ## Notes

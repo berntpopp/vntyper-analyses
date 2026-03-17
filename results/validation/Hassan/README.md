@@ -1,6 +1,6 @@
 # Hassan - Renome France Validation Cohort
 
-## Status: Partial (coverage only, missing Kestrel TSV)
+## Status: Complete (coverage + extracted Kestrel results)
 
 | Field | Value |
 |-------|-------|
@@ -17,7 +17,7 @@
 
 ## Genotyping Results
 
-Genotyping results are only available in the HTML report. No Kestrel TSV/CSV file with variant calls has been provided yet.
+Genotyping results were extracted from the HTML report using `scripts/extract_kestrel_from_html.py` in the manuscript repository.
 
 ## Files
 
@@ -25,10 +25,10 @@ Genotyping results are only available in the HTML report. No Kestrel TSV/CSV fil
 |------|-------------|
 | `260310_renome_France_coverage.csv` | Coverage metrics (6,351 samples) |
 | `260310_renome_France.html` | Cohort summary HTML report (8.2 MB) |
+| `renome_kestrel_results.csv` | **Generated:** Kestrel results extracted from HTML (6,350 samples) |
 
 ## Missing Data
 
-- Kestrel genotyping TSV/CSV with variant calls and classifications
 - Capture kit information
 
 ## Notes
