@@ -216,15 +216,31 @@ def generate_figures(results_base: Path, cfg: dict, logger):
             plt.close(fig)
             logger.info("  fig_coverage_sensitivity_curve")
 
-    # Figure 2: Per-mutation sensitivity bar chart
+    # Figure 2: Per-mutation sensitivity bar chart (includes dupC from exp1)
+    exp1_metrics = results_base / cfg["experiment1"]["dir_name"] / "performance_metrics.csv"
     exp2_metrics = results_base / cfg["experiment2"]["dir_name"] / "performance_metrics.csv"
     if exp2_metrics.exists():
-        df = pd.read_csv(exp2_metrics)
-        per_mut = df[df["subset"] != "all"].copy()
+        df2 = pd.read_csv(exp2_metrics)
+        per_mut = df2[df2["subset"] != "all"].copy()
+
+        # Add dupC from experiment 1 as first entry
+        if exp1_metrics.exists():
+            df1 = pd.read_csv(exp1_metrics)
+            dupc_row = df1[df1["subset"] == "all"].copy()
+            dupc_row["subset"] = "dupC"
+            per_mut = pd.concat([dupc_row, per_mut], ignore_index=True)
+
         if len(per_mut) > 0:
+            # Sort: dupC first, then descending sensitivity
+            per_mut["_is_dupc"] = per_mut["subset"] == "dupC"
+            per_mut = per_mut.sort_values(
+                ["_is_dupc", "sensitivity"], ascending=[False, False]
+            ).drop(columns=["_is_dupc"])
+
             fig, ax = plt.subplots(figsize=(10, 5))
-            per_mut = per_mut.sort_values("sensitivity", ascending=False)
-            ax.bar(per_mut["subset"], per_mut["sensitivity"], color="steelblue")
+            colors = ["#d62728" if m == "dupC" else "steelblue"
+                      for m in per_mut["subset"]]
+            ax.bar(per_mut["subset"], per_mut["sensitivity"], color=colors)
             ax.errorbar(
                 per_mut["subset"], per_mut["sensitivity"],
                 yerr=[
@@ -236,6 +252,12 @@ def generate_figures(results_base: Path, cfg: dict, logger):
             ax.set_ylabel("Sensitivity")
             ax.set_title("VNtyper Sensitivity by Mutation Type (Full Coverage)")
             ax.set_ylim(0, 1.05)
+            # Add legend for dupC highlight
+            from matplotlib.patches import Patch
+            ax.legend(handles=[
+                Patch(color="#d62728", label="dupC (canonical)"),
+                Patch(color="steelblue", label="Atypical frameshifts"),
+            ])
             plt.xticks(rotation=45, ha="right")
             plt.tight_layout()
             for ext in ["png", "svg"]:
@@ -243,11 +265,12 @@ def generate_figures(results_base: Path, cfg: dict, logger):
             plt.close(fig)
             logger.info("  fig_per_mutation_sensitivity")
 
-    # Figure 3: Per-mutation x coverage heatmap
+    # Figure 3: Per-mutation x coverage heatmap (includes dupC)
     if exp3_metrics.exists():
         df = pd.read_csv(exp3_metrics)
-        # Filter mutation-specific rows (not dupC_ds* or atypical_ds*)
-        mut_cov = df[~df["subset"].str.match(r"^(dupC|atypical|all)")].copy()
+        # Include dupC aggregate rows AND individual atypical mutation rows
+        # Exclude only the "atypical_ds*" aggregate rows and "all"
+        mut_cov = df[~df["subset"].str.match(r"^(atypical_ds|all)")].copy()
         if len(mut_cov) > 0:
             mut_cov["mutation"] = mut_cov["subset"].str.extract(r"^(.+?)_ds")[0]
             mut_cov["fraction"] = mut_cov["subset"].str.extract(r"_ds(\d+)$")[0].astype(int)
@@ -255,15 +278,27 @@ def generate_figures(results_base: Path, cfg: dict, logger):
                 values="sensitivity", index="mutation", columns="fraction"
             )
             if not pivot.empty:
-                # Sort columns descending
+                # Sort columns descending (high coverage left)
                 pivot = pivot[sorted(pivot.columns, reverse=True)]
-                fig, ax = plt.subplots(figsize=(8, 6))
+                # Sort rows: dupC first, then alphabetical
+                row_order = ["dupC"] + sorted([m for m in pivot.index if m != "dupC"])
+                pivot = pivot.reindex([m for m in row_order if m in pivot.index])
+
+                fig, ax = plt.subplots(figsize=(8, 7))
                 sns.heatmap(
                     pivot, annot=True, fmt=".2f", cmap="YlOrRd_r",
                     vmin=0, vmax=1, ax=ax
                 )
+                # Highlight dupC row with a box
+                if "dupC" in pivot.index:
+                    dupc_idx = list(pivot.index).index("dupC")
+                    ax.add_patch(plt.Rectangle(
+                        (0, dupc_idx), len(pivot.columns), 1,
+                        fill=False, edgecolor="#d62728", linewidth=2.5
+                    ))
                 ax.set_title("Sensitivity: Mutation Type x Coverage Fraction")
                 ax.set_xlabel("Coverage fraction (%)")
+                ax.set_ylabel("")
                 plt.tight_layout()
                 for ext in ["png", "svg"]:
                     fig.savefig(figures_dir / f"fig_per_mutation_coverage_heatmap.{ext}", dpi=300)
