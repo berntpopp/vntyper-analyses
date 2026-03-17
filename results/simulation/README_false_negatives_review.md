@@ -74,6 +74,22 @@ results/simulation/
     └── fig_vntr_length_vs_detection.png
 ```
 
+## Matched true positive controls
+
+For each mutation type with FNs, 3 TP samples with the closest total VNTR length to the FN median are included for direct comparison. This allows side-by-side review of why one sample was detected and another was not, controlling for VNTR length.
+
+| Mutation | FN pairs | Matched TP pairs (by VNTR length) |
+|----------|----------|-----------------------------------|
+| dupC | 3002, 3014, 3041, 3068, 3081, 3090 | 3063, 3060, 3012 |
+| insA_pos54 | 4070, 4073, 4074, 4075, 4076, 4078 | 4072, 4079, 4077 |
+| dupA | 4013, 4014, 4016, 4019 | 4010, 4018, 4017 |
+| delGCCCA | 4080, 4081, 4086 | 4087, 4088, 4082 |
+| insC_pos23 | 4040, 4045, 4046 | 4043, 4042, 4041 |
+| delinsAT | 4020, 4022 | 4024, 4029, 4027 |
+| ins25bp | 4091 | 4097, 4093, 4094 |
+| insG | 4005 | 4006, 4007, 4003 |
+| insG_pos58 | 4058 | 4054, 4059, 4056 |
+
 ## How to review a false negative
 
 1. Open `tables/supp_table_false_negatives.xlsx` for the summary
