@@ -293,6 +293,168 @@ def generate_tables(results_base: Path, cfg: dict, logger):
         logger.info("  No false positives (table not generated)")
 
 
+def generate_comprehensive_table(results_base: Path, cfg: dict, logger):
+    """Generate a comprehensive per-sample table merging all simulation and VNtyper data."""
+    import json
+    from datetime import datetime
+
+    tables_dir = results_base / "tables"
+    tables_dir.mkdir(parents=True, exist_ok=True)
+
+    all_rows = []
+    for exp_num in [1, 2]:
+        exp_dir_name = get_experiment_dir(cfg, exp_num)
+        exp_name = cfg[f"experiment{exp_num}"]["name"]
+        muconeup_dir = results_base / exp_dir_name / "muconeup"
+        vntyper_dir = results_base / exp_dir_name / "vntyper"
+
+        from _common import get_experiment_pairs, load_config
+        pairs = get_experiment_pairs(cfg, exp_num, test_mode=False)
+
+        for pair in pairs:
+            seed = pair["seed"]
+            pair_name = f"pair_{seed}"
+
+            for condition, cond_label, vnt_subdir in [
+                ("normal", "normal", "normal"),
+                ("mut", "mutated", "mutated"),
+            ]:
+                row = {
+                    "experiment": exp_name,
+                    "pair_id": pair_name,
+                    "seed": seed,
+                    "condition": cond_label,
+                    "expected_mutation": pair["mutation"] if condition == "mut" else "none",
+                }
+
+                # ── Simulation metadata ──
+                stats_file = muconeup_dir / pair_name / f"{pair_name}.001.{condition}.simulation_stats.json"
+                if stats_file.exists():
+                    with open(stats_file) as f:
+                        stats = json.load(f)
+
+                    hap_stats = stats.get("haplotype_statistics", [])
+                    if len(hap_stats) >= 2:
+                        row["hap1_repeat_count"] = hap_stats[0].get("repeat_count")
+                        row["hap2_repeat_count"] = hap_stats[1].get("repeat_count")
+                        row["hap1_vntr_length_bp"] = hap_stats[0].get("vntr_length")
+                        row["hap2_vntr_length_bp"] = hap_stats[1].get("vntr_length")
+                        row["total_repeat_count"] = (
+                            (hap_stats[0].get("repeat_count") or 0) +
+                            (hap_stats[1].get("repeat_count") or 0)
+                        )
+
+                        # Find mutated haplotype
+                        for i, h in enumerate(hap_stats):
+                            details = h.get("mutation_details", [])
+                            if details:
+                                row["mutated_haplotype"] = i + 1
+                                row["mutated_allele_repeat_count"] = h.get("repeat_count")
+                                row["mutation_position"] = details[0].get("position")
+                                row["mutation_repeat_type"] = details[0].get("repeat")
+                                break
+
+                    overall = stats.get("overall_statistics", {})
+                    row["avg_gc_content"] = overall.get("gc_content", {}).get("average")
+
+                    mut_info = stats.get("mutation_info", {})
+                    row["simulation_mutation"] = mut_info.get("mutation_name")
+
+                # ── VNtyper results ──
+                kestrel_tsv = vntyper_dir / pair_name / vnt_subdir / "kestrel" / "kestrel_result.tsv"
+                if kestrel_tsv.exists():
+                    kdf = pd.read_csv(kestrel_tsv, sep="\t", comment="#")
+                    if len(kdf) > 0:
+                        kr = kdf.iloc[0]
+                        conf = str(kr.get("Confidence", ""))
+                        if conf != "Negative" and str(kr.get("Variant", "")) != "None":
+                            row["vntyper_call"] = str(kr.get("Variant", ""))
+                            row["vntyper_confidence"] = conf
+                            row["vntyper_depth_score"] = kr.get("Depth_Score")
+                            row["vntyper_haplo_count"] = kr.get("haplo_count")
+                            row["vntyper_frame_score"] = kr.get("Frame_Score")
+                            row["vntyper_is_frameshift"] = kr.get("is_frameshift")
+                            row["vntyper_flag"] = str(kr.get("Flag", ""))
+                            row["vntyper_motif"] = str(kr.get("Motif", ""))
+                            row["vntyper_alt_depth"] = kr.get("Estimated_Depth_AlternateVariant")
+                            row["vntyper_region_depth"] = kr.get("Estimated_Depth_Variant_ActiveRegion")
+                        else:
+                            row["vntyper_call"] = ""
+                            row["vntyper_confidence"] = "Negative"
+                    else:
+                        row["vntyper_call"] = ""
+                        row["vntyper_confidence"] = "Negative"
+
+                # ── Coverage from pipeline_summary ──
+                ps_file = vntyper_dir / pair_name / vnt_subdir / "pipeline_summary.json"
+                if ps_file.exists():
+                    with open(ps_file) as f:
+                        ps = json.load(f)
+
+                    for step in ps.get("steps", []):
+                        if step["step"] == "Coverage Calculation":
+                            cov_data = step.get("parsed_result", {}).get("data", [])
+                            if cov_data:
+                                c = cov_data[0]
+                                row["vntr_coverage_mean"] = float(c.get("mean", 0))
+                                row["vntr_coverage_median"] = float(c.get("median", 0))
+                                row["vntr_coverage_stdev"] = float(c.get("stdev", 0))
+                                row["vntr_coverage_min"] = float(c.get("min", 0))
+                                row["vntr_coverage_max"] = float(c.get("max", 0))
+                                row["vntr_percent_uncovered"] = float(c.get("percent_uncovered", 0))
+
+                    # Runtime
+                    t_start = ps.get("pipeline_start")
+                    t_end = ps.get("pipeline_end")
+                    if t_start and t_end:
+                        try:
+                            row["vntyper_runtime_seconds"] = (
+                                datetime.fromisoformat(t_end) -
+                                datetime.fromisoformat(t_start)
+                            ).total_seconds()
+                        except (ValueError, TypeError):
+                            pass
+
+                # ── Classification ──
+                is_mutated = condition == "mut"
+                has_call = bool(row.get("vntyper_call"))
+                is_flagged = "False_Positive" in str(row.get("vntyper_flag", ""))
+                called_positive = has_call and not is_flagged
+                if is_mutated:
+                    row["classification"] = "TP" if called_positive else "FN"
+                else:
+                    row["classification"] = "FP" if called_positive else "TN"
+
+                all_rows.append(row)
+
+    if all_rows:
+        df = pd.DataFrame(all_rows)
+        # Order columns logically
+        col_order = [
+            "experiment", "pair_id", "seed", "condition", "expected_mutation",
+            "simulation_mutation", "classification",
+            # Simulation haplotype data
+            "hap1_repeat_count", "hap2_repeat_count", "total_repeat_count",
+            "hap1_vntr_length_bp", "hap2_vntr_length_bp",
+            "mutated_haplotype", "mutated_allele_repeat_count",
+            "mutation_position", "mutation_repeat_type", "avg_gc_content",
+            # VNtyper results
+            "vntyper_call", "vntyper_confidence", "vntyper_depth_score",
+            "vntyper_haplo_count", "vntyper_frame_score", "vntyper_is_frameshift",
+            "vntyper_flag", "vntyper_motif",
+            "vntyper_alt_depth", "vntyper_region_depth",
+            # Coverage
+            "vntr_coverage_mean", "vntr_coverage_median", "vntr_coverage_stdev",
+            "vntr_coverage_min", "vntr_coverage_max", "vntr_percent_uncovered",
+            # Runtime
+            "vntyper_runtime_seconds",
+        ]
+        # Only keep columns that exist
+        col_order = [c for c in col_order if c in df.columns]
+        df = df[col_order]
+        _save(df, tables_dir / "comprehensive_all_samples", logger)
+
+
 def generate_figures(results_base: Path, cfg: dict, logger):
     """Generate supplementary figures."""
     import matplotlib
@@ -584,7 +746,11 @@ def main():
     logger.info("Generating summary tables...")
     generate_tables(results_base, cfg, logger)
 
-    # 3. Figures
+    # 3. Comprehensive per-sample table
+    logger.info("Generating comprehensive sample table...")
+    generate_comprehensive_table(results_base, cfg, logger)
+
+    # 4. Figures
     logger.info("Generating figures...")
     generate_figures(results_base, cfg, logger)
 
