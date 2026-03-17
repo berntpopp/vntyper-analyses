@@ -18,6 +18,7 @@ from pathlib import Path
 from _common import (
     build_common_parser,
     get_experiment_dir,
+    get_experiment_pairs,
     get_results_base,
     load_config,
     setup_logging,
@@ -308,7 +309,6 @@ def generate_comprehensive_table(results_base: Path, cfg: dict, logger):
         muconeup_dir = results_base / exp_dir_name / "muconeup"
         vntyper_dir = results_base / exp_dir_name / "vntyper"
 
-        from _common import get_experiment_pairs, load_config
         pairs = get_experiment_pairs(cfg, exp_num, test_mode=False)
 
         for pair in pairs:

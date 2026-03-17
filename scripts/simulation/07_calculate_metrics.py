@@ -138,7 +138,7 @@ def main():
 
         # Join on pair_id + condition
         df = pd.merge(
-            parsed, gt[["pair_id", "condition", "mutation", "hap1_length", "hap2_length", "mutated_allele_length", "total_length", "mutated_allele_length"]],
+            parsed, gt[["pair_id", "condition", "mutation", "hap1_length", "hap2_length", "total_length", "mutated_allele_length"]],
             on=["pair_id", "condition"], how="left"
         )
 
