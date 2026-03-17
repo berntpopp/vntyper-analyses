@@ -26,22 +26,50 @@ from _common import (
 
 
 def parse_simulation_stats(stats_file: Path) -> Dict:
-    """Parse a simulation_stats.json file into a ground truth row."""
+    """Parse a simulation_stats.json file into a ground truth row.
+
+    MucOneUp 0.28.x JSON structure:
+    - mutation_info.mutation_name: mutation name (e.g. "dupC", "insG")
+    - provenance.seed: random seed used
+    - haplotype_statistics[0/1].repeat_count: repeat count per haplotype
+    - haplotype_statistics[i].mutation_details: list of {position, repeat} dicts
+    """
     with open(stats_file) as f:
         stats = json.load(f)
 
+    # Mutation name
+    mutation = stats.get("mutation_info", {}).get("mutation_name", "normal")
+
+    # Seed from provenance
+    seed = stats.get("provenance", {}).get("seed")
+
+    # Haplotype lengths from haplotype_statistics array
+    hap_stats = stats.get("haplotype_statistics", [])
+    hap1_length = hap_stats[0].get("repeat_count") if len(hap_stats) > 0 else None
+    hap2_length = hap_stats[1].get("repeat_count") if len(hap_stats) > 1 else None
+
+    # Mutation details (position and repeat type) from the haplotype that has them
+    mutation_repeat_position = None
+    mutation_repeat_type = None
+    for hap in hap_stats:
+        details = hap.get("mutation_details", [])
+        if details:
+            mutation_repeat_position = details[0].get("position")
+            mutation_repeat_type = details[0].get("repeat")
+            break
+
     row = {
-        "seed": stats.get("seed"),
-        "mutation": stats.get("mutation_name", "normal"),
-        "hap1_length": stats.get("haplotype_1", {}).get("length"),
-        "hap2_length": stats.get("haplotype_2", {}).get("length"),
-        "hap1_chain": stats.get("haplotype_1", {}).get("chain"),
-        "hap2_chain": stats.get("haplotype_2", {}).get("chain"),
-        "mutation_repeat_position": stats.get("mutation_repeat_position"),
-        "mutation_repeat_type": stats.get("mutation_repeat_type"),
+        "seed": seed,
+        "mutation": mutation,
+        "hap1_length": hap1_length,
+        "hap2_length": hap2_length,
+        "hap1_chain": None,  # Chain info from vntr_structure.txt, not stats JSON
+        "hap2_chain": None,
+        "mutation_repeat_position": mutation_repeat_position,
+        "mutation_repeat_type": mutation_repeat_type,
     }
-    if row["hap1_length"] is not None and row["hap2_length"] is not None:
-        row["total_length"] = row["hap1_length"] + row["hap2_length"]
+    if hap1_length is not None and hap2_length is not None:
+        row["total_length"] = hap1_length + hap2_length
     else:
         row["total_length"] = None
     return row

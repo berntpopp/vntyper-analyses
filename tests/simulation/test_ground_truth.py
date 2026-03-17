@@ -18,17 +18,14 @@ class TestParseSimulationStats:
         from importlib import import_module
         mod = import_module("05_create_ground_truth")
 
+        # MucOneUp 0.28.x JSON structure
         stats = {
-            "seed": 3000,
-            "mutation_name": "normal",
-            "haplotype_1": {
-                "length": 55,
-                "chain": "1-2-3-4-5-A-B-C-D-E-6p-7-8-9"
-            },
-            "haplotype_2": {
-                "length": 62,
-                "chain": "1-2-3-4-5-F-G-H-I-J-K-6p-7-8-9"
-            },
+            "mutation_info": {"mutation_name": "normal"},
+            "provenance": {"seed": 3000},
+            "haplotype_statistics": [
+                {"repeat_count": 55, "mutation_details": []},
+                {"repeat_count": 62, "mutation_details": []},
+            ],
         }
         stats_file = tmp_path / "pair_3000.001.normal.simulation_stats.json"
         stats_file.write_text(json.dumps(stats))
@@ -44,18 +41,12 @@ class TestParseSimulationStats:
         mod = import_module("05_create_ground_truth")
 
         stats = {
-            "seed": 3000,
-            "mutation_name": "dupC",
-            "haplotype_1": {
-                "length": 55,
-                "chain": "1-2-3-4-5-A-B-C-D-E-6p-7-8-9"
-            },
-            "haplotype_2": {
-                "length": 62,
-                "chain": "1-2-3-4-5-F-G-H-I-J-K-6p-7-8-9"
-            },
-            "mutation_repeat_position": 3,
-            "mutation_repeat_type": "X",
+            "mutation_info": {"mutation_name": "dupC"},
+            "provenance": {"seed": 3000},
+            "haplotype_statistics": [
+                {"repeat_count": 55, "mutation_details": []},
+                {"repeat_count": 62, "mutation_details": [{"position": 3, "repeat": "X"}]},
+            ],
         }
         stats_file = tmp_path / "pair_3000.001.mut.simulation_stats.json"
         stats_file.write_text(json.dumps(stats))
