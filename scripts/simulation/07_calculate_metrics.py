@@ -138,7 +138,7 @@ def main():
 
         # Join on pair_id + condition
         df = pd.merge(
-            parsed, gt[["pair_id", "condition", "mutation", "hap1_length", "hap2_length", "total_length"]],
+            parsed, gt[["pair_id", "condition", "mutation", "hap1_length", "hap2_length", "mutated_allele_length", "total_length", "mutated_allele_length"]],
             on=["pair_id", "condition"], how="left"
         )
 
@@ -208,7 +208,7 @@ def main():
         if gt_frames:
             gt_all = pd.concat(gt_frames, ignore_index=True)
             df3 = pd.merge(
-                df3, gt_all[["pair_id", "condition", "mutation", "hap1_length", "hap2_length"]],
+                df3, gt_all[["pair_id", "condition", "mutation", "hap1_length", "hap2_length", "mutated_allele_length"]],
                 on=["pair_id", "condition"], how="left"
             )
             df3["classification"] = df3.apply(

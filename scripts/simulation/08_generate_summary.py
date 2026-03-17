@@ -305,38 +305,116 @@ def generate_figures(results_base: Path, cfg: dict, logger):
                 plt.close(fig)
                 logger.info("  fig_per_mutation_coverage_heatmap")
 
-    # Figure 4: VNTR length vs detection
+    # Figure 4: VNTR length vs detection — box+strip plots with Mann-Whitney U
+    # Combine both experiments for a single combined figure, plus per-experiment
+    from scipy.stats import mannwhitneyu
+
+    all_mutated = []
     for exp_num in [1, 2]:
         exp_dir_name = get_experiment_dir(cfg, exp_num)
         sl_file = results_base / exp_dir_name / "sample_level_results.csv"
         if sl_file.exists():
             df = pd.read_csv(sl_file)
             mutated = df[df["condition"] == "mutated"].copy()
-            if len(mutated) > 0 and "total_length" in mutated.columns:
-                fig, ax = plt.subplots(figsize=(8, 5))
-                colors = {"TP": "green", "FN": "red"}
-                for cls in ["TP", "FN"]:
-                    subset = mutated[mutated["classification"] == cls]
-                    if len(subset) > 0:
-                        ax.scatter(
-                            subset["total_length"], [1 if cls == "TP" else 0] * len(subset),
-                            label=cls, alpha=0.6, color=colors[cls], s=30,
-                        )
-                ax.set_xlabel("Total VNTR length (repeats)")
-                ax.set_ylabel("Detection outcome")
-                ax.set_yticks([0, 1])
-                ax.set_yticklabels(["FN", "TP"])
-                ax.set_title(f"VNTR Length vs Detection (Experiment {exp_num})")
-                ax.legend()
+            mutated["experiment"] = cfg[f"experiment{exp_num}"]["name"]
+            all_mutated.append(mutated)
+
+    if all_mutated:
+        combined = pd.concat(all_mutated, ignore_index=True)
+
+        # Generate figures for two length metrics
+        length_configs = [
+            ("total_length", "Total VNTR Length (both alleles, repeats)"),
+            ("mutated_allele_length", "Mutated Allele Length (repeats)"),
+        ]
+
+        for length_col, length_label in length_configs:
+            if length_col not in combined.columns:
+                continue
+            plot_df = combined.dropna(subset=[length_col]).copy()
+            if len(plot_df) == 0:
+                continue
+
+            col_suffix = "total" if "total" in length_col else "allele"
+
+            # Per-experiment figures
+            for exp_label in plot_df["experiment"].unique():
+                exp_df = plot_df[plot_df["experiment"] == exp_label]
+                tp_vals = exp_df.loc[exp_df["classification"] == "TP", length_col]
+                fn_vals = exp_df.loc[exp_df["classification"] == "FN", length_col]
+
+                fig, ax = plt.subplots(figsize=(6, 5))
+                sns.boxplot(
+                    data=exp_df, x="classification", y=length_col,
+                    order=["TP", "FN"], palette={"TP": "#2ca02c", "FN": "#d62728"},
+                    width=0.5, ax=ax, showfliers=False,
+                )
+                sns.stripplot(
+                    data=exp_df, x="classification", y=length_col,
+                    order=["TP", "FN"], palette={"TP": "#2ca02c", "FN": "#d62728"},
+                    alpha=0.4, size=4, jitter=True, ax=ax,
+                )
+
+                # Mann-Whitney U test
+                if len(tp_vals) > 0 and len(fn_vals) > 0:
+                    stat, pval = mannwhitneyu(tp_vals, fn_vals, alternative="two-sided")
+                    p_text = f"p = {pval:.2e}" if pval < 0.001 else f"p = {pval:.3f}"
+                    ax.text(
+                        0.5, 0.95, f"Mann-Whitney U: {p_text}",
+                        transform=ax.transAxes, ha="center", va="top",
+                        fontsize=10, style="italic",
+                        bbox=dict(boxstyle="round,pad=0.3", facecolor="wheat", alpha=0.5),
+                    )
+
+                ax.set_xlabel("Detection Outcome")
+                ax.set_ylabel(length_label)
+                ax.set_title(f"{exp_label}: {length_label} by Detection")
                 plt.tight_layout()
-                exp_label = cfg[f"experiment{exp_num}"]["name"]
                 for ext in ["png", "svg"]:
                     fig.savefig(
-                        figures_dir / f"fig_vntr_length_vs_detection_{exp_label}.{ext}",
+                        figures_dir / f"fig_vntr_{col_suffix}_vs_detection_{exp_label}.{ext}",
                         dpi=300,
                     )
                 plt.close(fig)
-                logger.info(f"  fig_vntr_length_vs_detection_{exp_label}")
+                logger.info(f"  fig_vntr_{col_suffix}_vs_detection_{exp_label}")
+
+            # Combined figure (both experiments)
+            tp_vals = plot_df.loc[plot_df["classification"] == "TP", length_col]
+            fn_vals = plot_df.loc[plot_df["classification"] == "FN", length_col]
+
+            fig, ax = plt.subplots(figsize=(6, 5))
+            sns.boxplot(
+                data=plot_df, x="classification", y=length_col,
+                order=["TP", "FN"], palette={"TP": "#2ca02c", "FN": "#d62728"},
+                width=0.5, ax=ax, showfliers=False,
+            )
+            sns.stripplot(
+                data=plot_df, x="classification", y=length_col,
+                order=["TP", "FN"], palette={"TP": "#2ca02c", "FN": "#d62728"},
+                alpha=0.3, size=4, jitter=True, ax=ax,
+            )
+
+            if len(tp_vals) > 0 and len(fn_vals) > 0:
+                stat, pval = mannwhitneyu(tp_vals, fn_vals, alternative="two-sided")
+                p_text = f"p = {pval:.2e}" if pval < 0.001 else f"p = {pval:.3f}"
+                ax.text(
+                    0.5, 0.95, f"Mann-Whitney U: {p_text}\n(n={len(tp_vals)} TP, {len(fn_vals)} FN)",
+                    transform=ax.transAxes, ha="center", va="top",
+                    fontsize=10, style="italic",
+                    bbox=dict(boxstyle="round,pad=0.3", facecolor="wheat", alpha=0.5),
+                )
+
+            ax.set_xlabel("Detection Outcome")
+            ax.set_ylabel(length_label)
+            ax.set_title(f"All Experiments: {length_label} by Detection")
+            plt.tight_layout()
+            for ext in ["png", "svg"]:
+                fig.savefig(
+                    figures_dir / f"fig_vntr_{col_suffix}_vs_detection_combined.{ext}",
+                    dpi=300,
+                )
+            plt.close(fig)
+            logger.info(f"  fig_vntr_{col_suffix}_vs_detection_combined")
 
 
 def main():

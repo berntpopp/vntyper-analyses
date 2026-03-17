@@ -51,11 +51,15 @@ def parse_simulation_stats(stats_file: Path) -> Dict:
     # Mutation details (position and repeat type) from the haplotype that has them
     mutation_repeat_position = None
     mutation_repeat_type = None
-    for hap in hap_stats:
+    mutated_hap_index = None
+    mutated_allele_length = None
+    for i, hap in enumerate(hap_stats):
         details = hap.get("mutation_details", [])
         if details:
             mutation_repeat_position = details[0].get("position")
             mutation_repeat_type = details[0].get("repeat")
+            mutated_hap_index = i
+            mutated_allele_length = hap.get("repeat_count")
             break
 
     row = {
@@ -67,6 +71,7 @@ def parse_simulation_stats(stats_file: Path) -> Dict:
         "hap2_chain": None,
         "mutation_repeat_position": mutation_repeat_position,
         "mutation_repeat_type": mutation_repeat_type,
+        "mutated_allele_length": mutated_allele_length,
     }
     if hap1_length is not None and hap2_length is not None:
         row["total_length"] = hap1_length + hap2_length
