@@ -129,11 +129,15 @@ def generate_tables(results_base: Path, cfg: dict, logger):
 
     # ── Main Table: Performance overview (dupC + atypical) ──
     rows = []
-    for label, path in [("dupC", exp1_metrics_path), ("Atypical", exp2_metrics_path)]:
-        if not path.exists():
+    for label, exp_dir_name in [("dupC", cfg["experiment1"]["dir_name"]),
+                                 ("Atypical", cfg["experiment2"]["dir_name"])]:
+        metrics_path = results_base / exp_dir_name / "performance_metrics.csv"
+        parsed_path = results_base / exp_dir_name / "vntyper_parsed.csv"
+        if not metrics_path.exists():
             continue
-        df = pd.read_csv(path)
+        df = pd.read_csv(metrics_path)
         o = df[df["subset"] == "all"].iloc[0]
+
         rows.append({
             "Experiment": label,
             "N pairs": int(o["n_positive"]),

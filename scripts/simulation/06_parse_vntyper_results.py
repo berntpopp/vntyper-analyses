@@ -89,10 +89,30 @@ def extract_coverage(summary_file: Path) -> Dict:
 
 
 def extract_analysis_time(summary_file: Path) -> float:
-    """Extract total analysis time from pipeline_summary.json."""
+    """Extract total analysis time from pipeline_summary.json.
+
+    VNtyper 2.x stores pipeline_start and pipeline_end as ISO timestamps.
+    """
+    from datetime import datetime
+
     with open(summary_file) as f:
         summary = json.load(f)
-    return summary.get("total_time_seconds", None)
+
+    # Try direct field first (future-proofing)
+    if "total_time_seconds" in summary:
+        return summary["total_time_seconds"]
+
+    # Calculate from start/end timestamps
+    start = summary.get("pipeline_start")
+    end = summary.get("pipeline_end")
+    if start and end:
+        try:
+            t_start = datetime.fromisoformat(start)
+            t_end = datetime.fromisoformat(end)
+            return (t_end - t_start).total_seconds()
+        except (ValueError, TypeError):
+            pass
+    return None
 
 
 def parse_vntyper_output(vntyper_dir: Path) -> Dict:
