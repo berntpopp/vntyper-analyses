@@ -185,6 +185,9 @@ def generate_figures(results_base: Path, cfg: dict, logger):
     figures_dir = results_base / "figures"
     figures_dir.mkdir(parents=True, exist_ok=True)
 
+    # Global style: despine (show only x and y axes, no top/right box)
+    sns.set_style("ticks")
+
     # Figure 1: Coverage-sensitivity curve (includes 100% baseline from exp1/exp2)
     exp1_metrics = results_base / cfg["experiment1"]["dir_name"] / "performance_metrics.csv"
     exp2_metrics_path = results_base / cfg["experiment2"]["dir_name"] / "performance_metrics.csv"
@@ -228,10 +231,10 @@ def generate_figures(results_base: Path, cfg: dict, logger):
                     fontsize=8, color="grey", style="italic")
             ax.set_xlabel("Coverage fraction (%)")
             ax.set_ylabel("Sensitivity")
-            ax.set_title("VNtyper 2 Sensitivity vs Coverage Depth")
             ax.legend()
             ax.set_ylim(0, 1.05)
             ax.invert_xaxis()
+            sns.despine(ax=ax)
             plt.tight_layout()
             for ext in ["png", "svg"]:
                 fig.savefig(figures_dir / f"fig_coverage_sensitivity_curve.{ext}", dpi=300)
@@ -272,7 +275,6 @@ def generate_figures(results_base: Path, cfg: dict, logger):
                 fmt="none", color="black", capsize=3,
             )
             ax.set_ylabel("Sensitivity")
-            ax.set_title("VNtyper 2 Sensitivity by Mutation Type (Full Coverage)")
             ax.set_ylim(0, 1.05)
             # Add legend for dupC highlight
             from matplotlib.patches import Patch
@@ -281,6 +283,7 @@ def generate_figures(results_base: Path, cfg: dict, logger):
                 Patch(color="steelblue", label="Atypical frameshifts"),
             ])
             plt.xticks(rotation=45, ha="right")
+            sns.despine(ax=ax)
             plt.tight_layout()
             for ext in ["png", "svg"]:
                 fig.savefig(figures_dir / f"fig_per_mutation_sensitivity.{ext}", dpi=300)
@@ -342,7 +345,6 @@ def generate_figures(results_base: Path, cfg: dict, logger):
                         (col100_idx, 0), 1, len(pivot.index),
                         fill=False, edgecolor="grey", linewidth=2, linestyle="--"
                     ))
-                ax.set_title("Sensitivity: Mutation Type x Coverage Fraction")
                 ax.set_xlabel("Coverage fraction (%)")
                 ax.set_ylabel("")
                 plt.tight_layout()
@@ -423,11 +425,14 @@ def generate_figures(results_base: Path, cfg: dict, logger):
                             bbox=dict(boxstyle="round,pad=0.2", facecolor="wheat", alpha=0.5),
                         )
 
+                    sns.despine(ax=ax)
                     ax.set_xlabel("")
                     ax.set_ylabel(length_label if col == 0 else "")
-                    ax.set_title(exp_label if row == 0 else "")
+                    # Column labels on first row only
+                    if row == 0:
+                        ax.text(0.5, 1.05, exp_label, transform=ax.transAxes,
+                                ha="center", va="bottom", fontsize=11, fontweight="bold")
 
-            fig.suptitle("VNTR Length vs Detection Outcome", fontsize=14, y=1.01)
             plt.tight_layout()
             for ext in ["png", "svg"]:
                 fig.savefig(
