@@ -1,0 +1,3 @@
+Experiment	N pairs	TP	TN	FP	FN	Sensitivity	Specificity	PPV	NPV	F1
+dupC	100	94	100	0	6	94.0% (87.5%-97.2%)	100.0% (96.3%-100.0%)	100.0%	94.3%	0.969
+Atypical	100	79	100	0	21	79.0% (70.0%-85.8%)	100.0% (96.3%-100.0%)	100.0%	82.6%	0.883

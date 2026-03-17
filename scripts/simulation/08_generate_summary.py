@@ -101,42 +101,152 @@ def _yaml_val(v):
         return v
 
 
+def _fmt_ci(val, ci_low, ci_high):
+    """Format value with 95% CI as 'XX.X% (XX.X%-XX.X%)'."""
+    return f"{val*100:.1f}% ({ci_low*100:.1f}%-{ci_high*100:.1f}%)"
+
+
+def _fmt_pct(val):
+    """Format as percentage."""
+    return f"{val*100:.1f}%"
+
+
+def _save(df: pd.DataFrame, path: Path, logger):
+    """Save as both TSV and XLSX."""
+    df.to_csv(path.with_suffix(".tsv"), sep="\t", index=False)
+    df.to_excel(path.with_suffix(".xlsx"), index=False)
+    logger.info(f"  {path.stem} (.tsv, .xlsx)")
+
+
 def generate_tables(results_base: Path, cfg: dict, logger):
-    """Generate summary CSV tables."""
+    """Generate manuscript-ready tables in TSV and XLSX."""
     tables_dir = results_base / "tables"
     tables_dir.mkdir(parents=True, exist_ok=True)
 
-    # Table: Exp 1 performance
-    exp1_metrics = results_base / cfg["experiment1"]["dir_name"] / "performance_metrics.csv"
-    if exp1_metrics.exists():
-        df = pd.read_csv(exp1_metrics)
-        df[df["subset"] == "all"].to_csv(tables_dir / "table_exp1_performance.csv", index=False)
-        logger.info("  table_exp1_performance.csv")
+    exp1_metrics_path = results_base / cfg["experiment1"]["dir_name"] / "performance_metrics.csv"
+    exp2_metrics_path = results_base / cfg["experiment2"]["dir_name"] / "performance_metrics.csv"
+    exp3_metrics_path = results_base / cfg["experiment3"]["dir_name"] / "performance_metrics.csv"
 
-    # Table: Exp 2 performance + per-mutation
-    exp2_metrics = results_base / cfg["experiment2"]["dir_name"] / "performance_metrics.csv"
-    if exp2_metrics.exists():
-        df = pd.read_csv(exp2_metrics)
-        df[df["subset"] == "all"].to_csv(tables_dir / "table_exp2_performance.csv", index=False)
-        df[df["subset"] != "all"].to_csv(tables_dir / "table_exp2_per_mutation.csv", index=False)
-        logger.info("  table_exp2_performance.csv, table_exp2_per_mutation.csv")
+    # ── Main Table: Performance overview (dupC + atypical) ──
+    rows = []
+    for label, path in [("dupC", exp1_metrics_path), ("Atypical", exp2_metrics_path)]:
+        if not path.exists():
+            continue
+        df = pd.read_csv(path)
+        o = df[df["subset"] == "all"].iloc[0]
+        rows.append({
+            "Experiment": label,
+            "N pairs": int(o["n_positive"]),
+            "TP": int(o["tp"]), "TN": int(o["tn"]),
+            "FP": int(o["fp"]), "FN": int(o["fn"]),
+            "Sensitivity": _fmt_ci(o["sensitivity"], o["sensitivity_ci_low"], o["sensitivity_ci_high"]),
+            "Specificity": _fmt_ci(o["specificity"], o["specificity_ci_low"], o["specificity_ci_high"]),
+            "PPV": _fmt_pct(o["ppv"]),
+            "NPV": _fmt_pct(o["npv"]),
+            "F1": f"{o['f1_score']:.3f}",
+        })
+    if rows:
+        _save(pd.DataFrame(rows), tables_dir / "main_table_performance", logger)
 
-    # Table: Exp 3 coverage curve + per-mutation coverage
-    exp3_metrics = results_base / cfg["experiment3"]["dir_name"] / "performance_metrics.csv"
-    if exp3_metrics.exists():
-        df = pd.read_csv(exp3_metrics)
-        # Coverage curve: rows like dupC_ds50, atypical_ds25
-        cov_rows = df[df["subset"].str.match(r"^(dupC|atypical)_ds\d+$")]
-        cov_rows.to_csv(tables_dir / "table_exp3_coverage_curve.csv", index=False)
-        # Per-mutation coverage: rows like insG_ds50
-        mut_cov_rows = df[~df["subset"].str.match(r"^(dupC|atypical)_ds\d+$")]
-        if len(mut_cov_rows) > 0:
-            mut_cov_rows.to_csv(tables_dir / "table_exp3_per_mutation_coverage.csv", index=False)
-        logger.info("  table_exp3_coverage_curve.csv")
+    # ── Supplementary Table 1: Per-mutation sensitivity ──
+    if exp2_metrics_path.exists():
+        df2 = pd.read_csv(exp2_metrics_path)
+        per_mut = df2[df2["subset"] != "all"].sort_values("sensitivity", ascending=False)
 
-    # Table: False negatives and false positives
+        # Add dupC from exp1
+        if exp1_metrics_path.exists():
+            df1 = pd.read_csv(exp1_metrics_path)
+            dupc = df1[df1["subset"] == "all"].iloc[0]
+            dupc_row = {
+                "Mutation": "dupC",
+                "N": int(dupc["n_positive"]),
+                "TP": int(dupc["tp"]), "FN": int(dupc["fn"]),
+                "Sensitivity": _fmt_ci(dupc["sensitivity"], dupc["sensitivity_ci_low"], dupc["sensitivity_ci_high"]),
+            }
+        else:
+            dupc_row = None
+
+        sup_rows = []
+        if dupc_row:
+            sup_rows.append(dupc_row)
+        for _, r in per_mut.iterrows():
+            sup_rows.append({
+                "Mutation": r["subset"],
+                "N": int(r["n_positive"]),
+                "TP": int(r["tp"]), "FN": int(r["fn"]),
+                "Sensitivity": _fmt_ci(r["sensitivity"], r["sensitivity_ci_low"], r["sensitivity_ci_high"]),
+            })
+        _save(pd.DataFrame(sup_rows), tables_dir / "supp_table_per_mutation", logger)
+
+    # ── Supplementary Table 2: Coverage titration ──
+    if exp3_metrics_path.exists():
+        df3 = pd.read_csv(exp3_metrics_path)
+        cov = df3[df3["subset"].str.match(r"^(dupC|atypical)_ds\d+$")].copy()
+        cov["source"] = cov["subset"].str.extract(r"^(\w+)_ds")[0]
+        cov["fraction"] = cov["subset"].str.extract(r"_ds(\d+)$")[0].astype(int)
+
+        # Add 100% baseline
+        baseline_rows = []
+        if exp1_metrics_path.exists():
+            o1 = pd.read_csv(exp1_metrics_path)
+            o1 = o1[o1["subset"] == "all"].iloc[0]
+            baseline_rows.append({"source": "dupC", "fraction": 100, **o1.to_dict()})
+        if exp2_metrics_path.exists():
+            o2 = pd.read_csv(exp2_metrics_path)
+            o2 = o2[o2["subset"] == "all"].iloc[0]
+            baseline_rows.append({"source": "atypical", "fraction": 100, **o2.to_dict()})
+        if baseline_rows:
+            cov = pd.concat([cov, pd.DataFrame(baseline_rows)], ignore_index=True)
+
+        # Deduplicate: keep one row per (source, fraction)
+        cov = cov.drop_duplicates(subset=["source", "fraction"], keep="first")
+        cov_rows = []
+        for _, r in cov.sort_values(["source", "fraction"], ascending=[True, False]).iterrows():
+            cov_rows.append({
+                "Experiment": r["source"],
+                "Coverage (%)": int(r["fraction"]),
+                "N positive": int(r["n_positive"]),
+                "N negative": int(r["n_negative"]),
+                "Sensitivity": _fmt_ci(r["sensitivity"], r["sensitivity_ci_low"], r["sensitivity_ci_high"]),
+                "Specificity": _fmt_ci(r["specificity"], r["specificity_ci_low"], r["specificity_ci_high"]),
+            })
+        _save(pd.DataFrame(cov_rows), tables_dir / "supp_table_coverage_titration", logger)
+
+    # ── Supplementary Table 3: Per-mutation x coverage heatmap data ──
+    if exp3_metrics_path.exists():
+        df3 = pd.read_csv(exp3_metrics_path)
+        mut_cov = df3[~df3["subset"].str.match(r"^(atypical_ds|all)")].copy()
+
+        # Add 100% baselines
+        baseline_rows = []
+        if exp1_metrics_path.exists():
+            df1 = pd.read_csv(exp1_metrics_path)
+            r100 = df1[df1["subset"] == "all"].iloc[0].to_dict()
+            r100["subset"] = "dupC_ds100"
+            baseline_rows.append(r100)
+        if exp2_metrics_path.exists():
+            df2 = pd.read_csv(exp2_metrics_path)
+            for _, r in df2[df2["subset"] != "all"].iterrows():
+                r100 = r.to_dict()
+                r100["subset"] = f"{r['subset']}_ds100"
+                baseline_rows.append(r100)
+        if baseline_rows:
+            mut_cov = pd.concat([mut_cov, pd.DataFrame(baseline_rows)], ignore_index=True)
+
+        mut_cov["Mutation"] = mut_cov["subset"].str.extract(r"^(.+?)_ds")[0]
+        mut_cov["Coverage (%)"] = mut_cov["subset"].str.extract(r"_ds(\d+)$")[0].astype(int)
+
+        pivot = mut_cov.pivot_table(values="sensitivity", index="Mutation", columns="Coverage (%)")
+        if not pivot.empty:
+            pivot = pivot[sorted(pivot.columns, reverse=True)]
+            row_order = ["dupC"] + sorted([m for m in pivot.index if m != "dupC"])
+            pivot = pivot.reindex([m for m in row_order if m in pivot.index])
+            # Format as percentages
+            pivot_fmt = pivot.map(lambda x: f"{x*100:.0f}%" if pd.notna(x) else "")
+            _save(pivot_fmt.reset_index(), tables_dir / "supp_table_mutation_coverage_matrix", logger)
+
+    # ── Supplementary Table 4: False negatives detail ──
     fn_frames = []
-    fp_frames = []
     for exp_num in [1, 2]:
         exp_dir_name = get_experiment_dir(cfg, exp_num)
         sl_file = results_base / exp_dir_name / "sample_level_results.csv"
@@ -145,34 +255,38 @@ def generate_tables(results_base: Path, cfg: dict, logger):
             fn_df = df[df["classification"] == "FN"]
             if len(fn_df) > 0:
                 fn_frames.append(fn_df)
+
+    if fn_frames:
+        fn_all = pd.concat(fn_frames, ignore_index=True)
+        fn_clean = fn_all[[
+            "pair_id", "mutation", "hap1_length", "hap2_length",
+            "total_length", "mutated_allele_length",
+            "vntr_coverage_mean", "confidence",
+        ]].copy()
+        fn_clean.columns = [
+            "Pair", "Mutation", "Hap1 length", "Hap2 length",
+            "Total length", "Mutated allele length",
+            "VNTR coverage", "VNtyper confidence",
+        ]
+        fn_clean = fn_clean.sort_values(["Mutation", "Total length"])
+        _save(fn_clean, tables_dir / "supp_table_false_negatives", logger)
+
+    # ── Supplementary Table 5: False positives detail ──
+    fp_frames = []
+    for exp_num in [1, 2]:
+        exp_dir_name = get_experiment_dir(cfg, exp_num)
+        sl_file = results_base / exp_dir_name / "sample_level_results.csv"
+        if sl_file.exists():
+            df = pd.read_csv(sl_file)
             fp_df = df[df["classification"] == "FP"]
             if len(fp_df) > 0:
                 fp_frames.append(fp_df)
 
-    if fn_frames:
-        fn_all = pd.concat(fn_frames, ignore_index=True)
-        fn_all.to_csv(tables_dir / "table_false_negatives.csv", index=False)
-        logger.info(f"  table_false_negatives.csv ({len(fn_all)} FNs)")
-
     if fp_frames:
         fp_all = pd.concat(fp_frames, ignore_index=True)
-        fp_all.to_csv(tables_dir / "table_false_positives.csv", index=False)
-        logger.info(f"  table_false_positives.csv ({len(fp_all)} FPs)")
-
-    # Combined overview table
-    all_metrics = []
-    for exp_num in [1, 2]:
-        exp_dir_name = get_experiment_dir(cfg, exp_num)
-        mf = results_base / exp_dir_name / "performance_metrics.csv"
-        if mf.exists():
-            all_metrics.append(pd.read_csv(mf))
-    exp3_mf = results_base / cfg["experiment3"]["dir_name"] / "performance_metrics.csv"
-    if exp3_mf.exists():
-        all_metrics.append(pd.read_csv(exp3_mf))
-    if all_metrics:
-        combined = pd.concat(all_metrics, ignore_index=True)
-        combined.to_csv(tables_dir / "table_combined_overview.csv", index=False)
-        logger.info("  table_combined_overview.csv")
+        _save(fp_all, tables_dir / "supp_table_false_positives", logger)
+    else:
+        logger.info("  No false positives (table not generated)")
 
 
 def generate_figures(results_base: Path, cfg: dict, logger):
