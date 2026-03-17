@@ -1,0 +1,201 @@
+kestrel_call,confidence,depth_score,haplo_count,flag,is_frameshift,vntr_coverage_mean,vntr_coverage_median,analysis_time_seconds,pair_id,condition,coverage_fraction
+,Negative,,,,False,353.33,188.0,,pair_3000,normal,100
+Insertion,High_Precision*,0.0221373778416056,371.0,Not flagged,True,347.98,189.0,,pair_3000,mutated,100
+,Negative,,,,False,365.33,187.0,,pair_3001,normal,100
+Insertion,High_Precision*,0.0157897470524074,390.0,Not flagged,True,360.14,190.0,,pair_3001,mutated,100
+,Negative,,,,False,372.82,116.0,,pair_3002,normal,100
+,Negative,,,,False,377.91,134.0,,pair_3002,mutated,100
+,Negative,,,,False,327.76,223.0,,pair_3003,normal,100
+Insertion,High_Precision*,0.03499930967831,386.0,Not flagged,True,318.98,220.0,,pair_3003,mutated,100
+,Negative,,,,False,354.33,150.0,,pair_3004,normal,100
+Insertion,High_Precision*,0.0302880192484608,386.0,Not flagged,True,360.6,137.5,,pair_3004,mutated,100
+,Negative,,,,False,371.39,123.0,,pair_3005,normal,100
+Insertion,High_Precision*,0.0333713338169758,347.0,Not flagged,True,354.67,126.5,,pair_3005,mutated,100
+,Negative,,,,False,353.48,150.0,,pair_3006,normal,100
+Insertion,High_Precision*,0.0127044107107954,380.0,Not flagged,True,361.94,149.5,,pair_3006,mutated,100
+,Negative,,,,False,365.17,172.0,,pair_3007,normal,100
+Insertion,High_Precision*,0.0469597487867542,345.0,Not flagged,True,365.11,187.0,,pair_3007,mutated,100
+,Negative,,,,False,376.11,123.0,,pair_3008,normal,100
+Insertion,High_Precision*,0.0143618596387326,382.0,Not flagged,True,333.26,104.0,,pair_3008,mutated,100
+,Negative,,,,False,362.79,197.0,,pair_3009,normal,100
+Insertion,High_Precision*,0.0134319348022939,379.0,Not flagged,True,316.52,174.0,,pair_3009,mutated,100
+,Negative,,,,False,365.67,148.0,,pair_3010,normal,100
+Insertion,High_Precision*,0.0390365448504983,357.0,Not flagged,True,332.68,133.0,,pair_3010,mutated,100
+,Negative,,,,False,376.92,123.0,,pair_3011,normal,100
+Insertion,High_Precision*,0.0108538350217076,383.0,Not flagged,True,379.3,113.0,,pair_3011,mutated,100
+,Negative,,,,False,370.88,127.0,,pair_3012,normal,100
+Insertion,High_Precision*,0.0058216459380788,380.0,Not flagged,True,370.6,116.0,,pair_3012,mutated,100
+,Negative,,,,False,370.49,152.0,,pair_3013,normal,100
+Insertion,High_Precision*,0.0096453479744769,377.0,Not flagged,True,363.83,148.0,,pair_3013,mutated,100
+,Negative,,,,False,373.54,112.0,,pair_3014,normal,100
+,Negative,,,,False,370.9,121.0,,pair_3014,mutated,100
+,Negative,,,,False,363.61,163.0,,pair_3015,normal,100
+Insertion,High_Precision*,0.0187823017773856,388.0,Not flagged,True,365.73,161.0,,pair_3015,mutated,100
+,Negative,,,,False,343.31,128.0,,pair_3016,normal,100
+Insertion,High_Precision*,0.0196712654300613,391.0,Not flagged,True,357.56,140.0,,pair_3016,mutated,100
+,Negative,,,,False,348.3,158.0,,pair_3017,normal,100
+Insertion,High_Precision*,0.0232363990538472,359.0,Not flagged,True,367.98,172.5,,pair_3017,mutated,100
+,Negative,,,,False,362.1,170.0,,pair_3018,normal,100
+Insertion,High_Precision*,0.0194953698496607,384.0,Not flagged,True,354.02,173.0,,pair_3018,mutated,100
+,Negative,,,,False,368.94,178.0,,pair_3019,normal,100
+Insertion,High_Precision*,0.0392347150977401,347.0,Not flagged,True,366.68,175.0,,pair_3019,mutated,100
+,Negative,,,,False,363.71,144.0,,pair_3020,normal,100
+Insertion,High_Precision*,0.0130694548170276,333.0,Not flagged,True,358.18,131.0,,pair_3020,mutated,100
+,Negative,,,,False,361.46,165.0,,pair_3021,normal,100
+Insertion,High_Precision*,0.029389441727104,344.0,Not flagged,True,363.44,178.0,,pair_3021,mutated,100
+,Negative,,,,False,356.23,163.0,,pair_3022,normal,100
+Insertion,High_Precision*,0.028882695718267,381.0,Not flagged,True,320.63,148.5,,pair_3022,mutated,100
+,Negative,,,,False,334.94,201.0,,pair_3023,normal,100
+Insertion,High_Precision*,0.0422441301138257,380.0,Not flagged,True,346.49,210.0,,pair_3023,mutated,100
+,Negative,,,,False,346.07,139.0,,pair_3024,normal,100
+Insertion,High_Precision*,0.0135129533678756,338.0,Not flagged,True,369.19,144.0,,pair_3024,mutated,100
+,Negative,,,,False,363.17,116.0,,pair_3025,normal,100
+Insertion,High_Precision*,0.0076539910095978,388.0,Not flagged,True,377.94,119.0,,pair_3025,mutated,100
+,Negative,,,,False,369.13,128.0,,pair_3026,normal,100
+Insertion,High_Precision*,0.0322441403720809,380.0,Not flagged,True,369.38,128.0,,pair_3026,mutated,100
+,Negative,,,,False,378.23,124.0,,pair_3027,normal,100
+Insertion,High_Precision*,0.0168248490077653,383.0,Not flagged,True,374.67,128.0,,pair_3027,mutated,100
+,Negative,,,,False,329.12,212.0,,pair_3028,normal,100
+Insertion,High_Precision*,0.0723462510530749,376.0,Not flagged,True,329.1,199.0,,pair_3028,mutated,100
+,Negative,,,,False,366.4,159.0,,pair_3029,normal,100
+Insertion,High_Precision*,0.0185395610310388,388.0,Not flagged,True,367.84,150.0,,pair_3029,mutated,100
+,Negative,,,,False,371.01,137.0,,pair_3030,normal,100
+Insertion,High_Precision*,0.0057659400342236,381.0,Not flagged,True,374.51,137.0,,pair_3030,mutated,100
+,Negative,,,,False,347.96,130.0,,pair_3031,normal,100
+Insertion,High_Precision*,0.0320892439057981,391.0,Not flagged,True,362.8,146.0,,pair_3031,mutated,100
+,Negative,,,,False,358.46,107.0,,pair_3032,normal,100
+Insertion,High_Precision*,0.0291616038882138,384.0,Not flagged,True,370.7,109.0,,pair_3032,mutated,100
+,Negative,,,,False,349.73,141.0,,pair_3033,normal,100
+Insertion,High_Precision*,0.0157030349596619,348.0,Not flagged,True,365.48,148.0,,pair_3033,mutated,100
+,Negative,,,,False,357.43,169.0,,pair_3034,normal,100
+Insertion,High_Precision*,0.0764182895850973,345.0,Not flagged,True,358.08,177.0,,pair_3034,mutated,100
+,Negative,,,,False,361.24,148.5,,pair_3035,normal,100
+Insertion,High_Precision*,0.0197351337314983,372.0,Not flagged,True,368.27,145.0,,pair_3035,mutated,100
+,Negative,,,,False,371.75,119.0,,pair_3036,normal,100
+Insertion,High_Precision*,0.0138388625592417,348.0,Not flagged,True,375.5,121.0,,pair_3036,mutated,100
+,Negative,,,,False,372.92,113.5,,pair_3037,normal,100
+Insertion,High_Precision*,0.0276305013147118,377.0,Not flagged,True,380.59,131.0,,pair_3037,mutated,100
+,Negative,,,,False,366.96,130.0,,pair_3038,normal,100
+Insertion,High_Precision*,0.005691191026064,359.0,Not flagged,True,374.03,126.0,,pair_3038,mutated,100
+,Negative,,,,False,367.33,122.0,,pair_3039,normal,100
+Insertion,High_Precision*,0.0064809949203012,381.0,Not flagged,True,372.55,130.0,,pair_3039,mutated,100
+,Negative,,,,False,354.62,131.0,,pair_3040,normal,100
+Insertion,High_Precision*,0.0335147697388538,383.0,Not flagged,True,359.29,138.0,,pair_3040,mutated,100
+,Negative,,,,False,392.31,107.0,,pair_3041,normal,100
+,Negative,,,,False,395.02,114.0,,pair_3041,mutated,100
+,Negative,,,,False,341.29,143.5,,pair_3042,normal,100
+Insertion,High_Precision*,0.0207351123724081,375.0,Not flagged,True,365.11,168.0,,pair_3042,mutated,100
+,Negative,,,,False,356.55,129.0,,pair_3043,normal,100
+Insertion,High_Precision*,0.0204871060171919,373.0,Not flagged,True,354.59,142.0,,pair_3043,mutated,100
+,Negative,,,,False,351.58,174.0,,pair_3044,normal,100
+Insertion,High_Precision*,0.0093320812301913,353.0,Not flagged,True,353.31,185.0,,pair_3044,mutated,100
+,Negative,,,,False,353.83,144.0,,pair_3045,normal,100
+Insertion,High_Precision*,0.0210611836760202,384.0,Not flagged,True,374.77,144.5,,pair_3045,mutated,100
+,Negative,,,,False,356.56,110.0,,pair_3046,normal,100
+Insertion,High_Precision*,0.0053224472922695,378.0,Not flagged,True,363.27,101.0,,pair_3046,mutated,100
+,Negative,,,,False,358.57,166.0,,pair_3047,normal,100
+Insertion,High_Precision*,0.0096046367211757,358.0,Not flagged,True,342.7,167.0,,pair_3047,mutated,100
+,Negative,,,,False,364.21,126.0,,pair_3048,normal,100
+Insertion,High_Precision*,0.0146962769431743,354.0,Not flagged,True,355.75,120.0,,pair_3048,mutated,100
+,Negative,,,,False,354.94,153.0,,pair_3049,normal,100
+Insertion,High_Precision*,0.0398611577650879,381.0,Not flagged,True,357.93,146.0,,pair_3049,mutated,100
+,Negative,,,,False,363.94,158.0,,pair_3050,normal,100
+Insertion,High_Precision*,0.0311903665197078,383.0,Not flagged,True,364.03,138.0,,pair_3050,mutated,100
+,Negative,,,,False,350.3,171.0,,pair_3051,normal,100
+Insertion,High_Precision*,0.0188363331938049,365.0,Not flagged,True,353.37,175.0,,pair_3051,mutated,100
+,Negative,,,,False,353.35,128.0,,pair_3052,normal,100
+Insertion,High_Precision*,0.0225978879666246,383.0,Not flagged,True,368.09,140.0,,pair_3052,mutated,100
+,Negative,,,,False,379.01,129.0,,pair_3053,normal,100
+Insertion,High_Precision*,0.0424717045844289,391.0,Not flagged,True,373.51,144.0,,pair_3053,mutated,100
+,Negative,,,,False,376.47,150.0,,pair_3054,normal,100
+Insertion,High_Precision*,0.0108360108360108,381.0,Not flagged,True,374.93,166.0,,pair_3054,mutated,100
+,Negative,,,,False,338.57,256.0,,pair_3055,normal,100
+Insertion,High_Precision*,0.0610095222044324,370.0,Not flagged,True,338.48,276.0,,pair_3055,mutated,100
+,Negative,,,,False,366.31,161.0,,pair_3056,normal,100
+Insertion,High_Precision*,0.0143771947944639,391.0,Not flagged,True,356.06,157.0,,pair_3056,mutated,100
+,Negative,,,,False,355.66,199.0,,pair_3057,normal,100
+Insertion,High_Precision*,0.0207056698703476,324.0,Not flagged,True,344.43,194.0,,pair_3057,mutated,100
+,Negative,,,,False,363.97,137.0,,pair_3058,normal,100
+Insertion,High_Precision*,0.0075046080926884,388.0,Not flagged,True,340.49,135.0,,pair_3058,mutated,100
+,Negative,,,,False,368.44,140.0,,pair_3059,normal,100
+Insertion,High_Precision*,0.0200563427658411,390.0,Not flagged,True,364.78,134.0,,pair_3059,mutated,100
+,Negative,,,,False,350.87,138.0,,pair_3060,normal,100
+Insertion,High_Precision*,0.0182096069868995,390.0,Not flagged,True,369.4,139.0,,pair_3060,mutated,100
+,Negative,,,,False,374.33,146.0,,pair_3061,normal,100
+Insertion,High_Precision*,0.0289776817854571,385.0,Not flagged,True,340.39,142.0,,pair_3061,mutated,100
+,Negative,,,,False,370.62,165.0,,pair_3062,normal,100
+Insertion,High_Precision*,0.044163637900431,386.0,Not flagged,True,371.49,187.0,,pair_3062,mutated,100
+,Negative,,,,False,330.25,128.0,,pair_3063,normal,100
+Insertion,High_Precision,0.0061292719167904,335.0,Not flagged,True,367.81,117.0,,pair_3063,mutated,100
+,Negative,,,,False,364.05,129.0,,pair_3064,normal,100
+Insertion,High_Precision*,0.0057756150802674,391.0,Not flagged,True,350.98,124.0,,pair_3064,mutated,100
+,Negative,,,,False,348.26,211.0,,pair_3065,normal,100
+Insertion,High_Precision*,0.0248299481520239,379.0,Not flagged,True,337.29,180.0,,pair_3065,mutated,100
+,Negative,,,,False,346.04,127.0,,pair_3066,normal,100
+Insertion,High_Precision*,0.0204447254715986,331.0,Not flagged,True,365.99,125.0,,pair_3066,mutated,100
+,Negative,,,,False,370.16,124.5,,pair_3067,normal,100
+Insertion,High_Precision,0.0061366061899679,193.0,Not flagged,True,365.28,123.0,,pair_3067,mutated,100
+,Negative,,,,False,368.06,197.0,,pair_3068,normal,100
+,Negative,,,,False,367.8,178.0,,pair_3068,mutated,100
+,Negative,,,,False,361.09,106.0,,pair_3069,normal,100
+Insertion,High_Precision*,0.0062238180730101,188.0,Not flagged,True,375.21,116.0,,pair_3069,mutated,100
+,Negative,,,,False,352.45,237.0,,pair_3070,normal,100
+Insertion,High_Precision*,0.0402661661832451,371.0,Not flagged,True,341.61,218.0,,pair_3070,mutated,100
+,Negative,,,,False,369.18,137.0,,pair_3071,normal,100
+Insertion,High_Precision*,0.0441978097529833,374.0,Not flagged,True,374.39,151.0,,pair_3071,mutated,100
+,Negative,,,,False,367.68,125.0,,pair_3072,normal,100
+Insertion,High_Precision*,0.0125949249861085,381.0,Not flagged,True,344.92,129.0,,pair_3072,mutated,100
+,Negative,,,,False,363.56,118.0,,pair_3073,normal,100
+Insertion,High_Precision*,0.0061170987474512,355.0,Not flagged,True,355.76,107.0,,pair_3073,mutated,100
+,Negative,,,,False,370.6,131.0,,pair_3074,normal,100
+Insertion,High_Precision*,0.0110320994218116,380.0,Not flagged,True,363.46,124.0,,pair_3074,mutated,100
+,Negative,,,,False,438.5,196.0,,pair_3075,normal,100
+Insertion,High_Precision*,0.0438809771911543,385.0,Not flagged,True,388.1,181.0,,pair_3075,mutated,100
+,Negative,,,,False,315.0,209.0,,pair_3076,normal,100
+Insertion,High_Precision*,0.0463782640164801,378.0,Not flagged,True,305.67,208.0,,pair_3076,mutated,100
+,Negative,,,,False,373.21,125.0,,pair_3077,normal,100
+Insertion,High_Precision*,0.0116242139363526,385.0,Not flagged,True,373.3,130.0,,pair_3077,mutated,100
+,Negative,,,,False,373.09,116.0,,pair_3078,normal,100
+Insertion,High_Precision*,0.0163353172090667,390.0,Not flagged,True,376.5,128.0,,pair_3078,mutated,100
+,Negative,,,,False,373.58,128.0,,pair_3079,normal,100
+Insertion,High_Precision*,0.0111784511784511,342.0,Not flagged,True,373.16,135.0,,pair_3079,mutated,100
+,Negative,,,,False,362.38,127.0,,pair_3080,normal,100
+Insertion,High_Precision*,0.0522815444300757,374.0,Not flagged,True,364.2,134.0,,pair_3080,mutated,100
+,Negative,,,,False,361.31,124.0,,pair_3081,normal,100
+,Negative,,,,False,371.49,127.0,,pair_3081,mutated,100
+,Negative,,,,False,376.6,134.0,,pair_3082,normal,100
+Insertion,High_Precision*,0.0083656300217411,383.0,Not flagged,True,363.85,120.0,,pair_3082,mutated,100
+,Negative,,,,False,342.84,135.0,,pair_3083,normal,100
+Insertion,High_Precision*,0.0136887608069164,346.0,Not flagged,True,352.65,149.0,,pair_3083,mutated,100
+,Negative,,,,False,367.54,124.0,,pair_3084,normal,100
+Insertion,High_Precision*,0.0266329169647278,333.0,Not flagged,True,360.44,123.0,,pair_3084,mutated,100
+,Negative,,,,False,368.58,113.0,,pair_3085,normal,100
+Insertion,High_Precision*,0.0152505446623093,315.0,Not flagged,True,374.08,123.0,,pair_3085,mutated,100
+,Negative,,,,False,368.35,156.0,,pair_3086,normal,100
+Insertion,High_Precision*,0.0171355133514208,370.0,Not flagged,True,367.99,149.0,,pair_3086,mutated,100
+,Negative,,,,False,349.7,116.0,,pair_3087,normal,100
+Insertion,High_Precision*,0.0326380097969068,374.0,Not flagged,True,365.9,116.0,,pair_3087,mutated,100
+,Negative,,,,False,362.49,160.0,,pair_3088,normal,100
+Insertion,High_Precision*,0.0504309917764787,378.0,Not flagged,True,368.52,154.0,,pair_3088,mutated,100
+,Negative,,,,False,325.31,136.0,,pair_3089,normal,100
+Insertion,High_Precision*,0.0181059127830466,346.0,Not flagged,True,372.17,160.0,,pair_3089,mutated,100
+,Negative,,,,False,378.1,148.0,,pair_3090,normal,100
+,Negative,,,,False,349.44,132.0,,pair_3090,mutated,100
+,Negative,,,,False,369.68,130.0,,pair_3091,normal,100
+Insertion,High_Precision*,0.008228517691313,383.0,Not flagged,True,375.37,143.0,,pair_3091,mutated,100
+,Negative,,,,False,368.13,143.0,,pair_3092,normal,100
+Insertion,High_Precision*,0.0211119559869392,376.0,Not flagged,True,363.55,142.0,,pair_3092,mutated,100
+,Negative,,,,False,345.82,176.0,,pair_3093,normal,100
+Insertion,High_Precision*,0.0538016065757519,371.0,Not flagged,True,352.81,166.0,,pair_3093,mutated,100
+,Negative,,,,False,371.53,153.0,,pair_3094,normal,100
+Insertion,High_Precision*,0.0255647792508156,378.0,Not flagged,True,358.79,148.0,,pair_3094,mutated,100
+,Negative,,,,False,369.99,109.0,,pair_3095,normal,100
+Insertion,High_Precision*,0.0097746402389356,360.0,Not flagged,True,339.94,99.0,,pair_3095,mutated,100
+,Negative,,,,False,372.6,121.0,,pair_3096,normal,100
+Insertion,High_Precision*,0.017253589132814,331.0,Not flagged,True,372.75,129.0,,pair_3096,mutated,100
+,Negative,,,,False,352.69,141.0,,pair_3097,normal,100
+Insertion,High_Precision*,0.02072115056915,353.0,Not flagged,True,360.13,141.0,,pair_3097,mutated,100
+,Negative,,,,False,364.31,153.0,,pair_3098,normal,100
+Insertion,High_Precision*,0.0412941467028896,370.0,Not flagged,True,366.6,151.0,,pair_3098,mutated,100
+,Negative,,,,False,365.18,123.0,,pair_3099,normal,100
+Insertion,High_Precision*,0.0212063759567446,389.0,Not flagged,True,348.38,111.0,,pair_3099,mutated,100

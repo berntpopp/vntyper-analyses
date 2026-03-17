@@ -1,0 +1,2 @@
+n_positive,n_negative,tp,tn,fp,fn,sensitivity,sensitivity_ci_low,sensitivity_ci_high,specificity,specificity_ci_low,specificity_ci_high,ppv,npv,f1_score,experiment,subset
+100,100,94,100,0,6,0.94,0.8752303146877748,0.9722142547333432,1.0,0.963005192523998,1.0,1.0,0.9433962264150944,0.9690721649484536,dupC,all

@@ -96,8 +96,9 @@ test:
 
 # Parallelism
 workers:
-  # MucOneUp simulation: CPU-bound, use many workers with few threads each
-  simulate: 16
+  # MucOneUp simulation: BWA-MEM uses ~4-5GB RAM per instance
+  # 8 workers x ~5GB = ~40GB, safe for 60GB system
+  simulate: 8
   simulate_threads: 2
   # VNtyper via Docker: memory-heavy, use fewer workers
   vntyper: 4
