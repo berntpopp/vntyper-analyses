@@ -59,6 +59,10 @@ def parse_sample(sample_dir: Path) -> dict:
             if confidence != "Negative" and variant != "None":
                 result["kestrel_call"] = variant
                 result["confidence"] = confidence
+                result["pos"] = row.get("POS")
+                result["ref"] = row.get("REF")
+                result["alt"] = row.get("ALT")
+                result["motifs"] = str(row.get("Motifs", ""))
                 result["depth_score"] = row.get("Depth_Score")
                 result["haplo_count"] = row.get("haplo_count")
                 result["frame_score"] = row.get("Frame_Score")
