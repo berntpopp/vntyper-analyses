@@ -1,0 +1,13 @@
+Metric	Value
+Total samples	1051
+Positive calls	22
+Negative calls	1029
+Positive rate	2.1%
+  High_Precision	9
+  High_Precision*	4
+  Low_Precision	9
+Flagged (artifact)	23
+Coverage mean (TwistExomev0.2)	153.0 (IQR 115.7-204.5)
+Coverage mean (TwistExomev0.2 (size 37484908bp))	172.2 (IQR 137.6-213.6)
+Coverage mean (TwistExomev2)	197.4 (IQR 163.7-236.7)
+Runtime per sample	4.2s median (range 0.3-6.8s)
