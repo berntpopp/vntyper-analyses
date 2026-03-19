@@ -114,4 +114,4 @@ vntyper:
   # Docker execution: set use_docker to true to run VNtyper and samtools
   # via the saei/vntyper Docker image instead of host-installed binaries
   use_docker: true
-  docker_image: "saei/vntyper:latest"
+  docker_image: "saei/vntyper:2.0.2"
