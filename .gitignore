@@ -13,6 +13,7 @@ results/simulation/experiment3_coverage/downsampled/
 results/simulation/experiment3_coverage/vntyper/
 results/simulation_test/
 results/downsampling/downsample_exomes/
+results/screening/*/data/
 
 # claude files and folders
 .claude/
