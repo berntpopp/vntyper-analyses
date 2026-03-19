@@ -1,0 +1,21 @@
+# Screening cohort configuration
+
+cohorts:
+  Bernt:
+    name: "CerKiD Exome"
+    data_dir: "results/screening/Bernt/data/cerkid-exome-chr1"
+    metadata_tsv: "results/screening/Bernt/data/cerkid-exome-chr1/cerkid_exome_overview.tsv"
+    results_dir: "results/screening/Bernt/vntyper"
+    cohort_dir: "results/screening/Bernt/cohort_summary"
+    tables_dir: "results/screening/Bernt/tables"
+    reference_assembly: hg38
+    bam_column: "bam_file"
+    sample_id_column: "lb_number"
+    filter_column: "download_status"
+    filter_value: "downloaded"
+
+vntyper:
+  use_docker: true
+  docker_image: "saei/vntyper:latest"
+  timeout_seconds: 300
+  workers: 4
