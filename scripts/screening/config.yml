@@ -16,6 +16,6 @@ cohorts:
 
 vntyper:
   use_docker: true
-  docker_image: "saei/vntyper:2.0.2"
+  docker_image: "saei/vntyper:latest"
   timeout_seconds: 300
   workers: 4
